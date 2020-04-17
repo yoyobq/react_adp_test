@@ -66,10 +66,24 @@ export default defineConfig({
               component: './Welcome',
             },
             {
-              path: '/test01',
-              name: 'Test01BlankPage',
-              icon: 'Bulb',
-              component: './TestPages/Test01BlankPage/NewPage',
+              path: '/Test',
+              name: 'TestPage',
+              icon: 'Tool',
+              authority: ['admin'],
+              routes: [
+                {
+                  path: '/Test/Test01',
+                  name: 'Test01BlankPage',
+                  icon: 'Bulb',
+                  component: './TestPages/Test01BlankPage/NewPage',
+                },
+                {
+                  path: '/Test/Test02',
+                  name: 'tic-tac-toe',
+                  icon: 'Number',
+                  component: './TestPages/Test02TicTacToe/index',
+                },
+              ]
             },
             {
               path: '/admin',
