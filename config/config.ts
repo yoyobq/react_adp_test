@@ -66,6 +66,12 @@ export default defineConfig({
               component: './Welcome',
             },
             {
+              path: '/test01',
+              name: 'Test01BlankPage',
+              icon: 'Bulb',
+              component: './TestPages/Test01BlankPage/NewPage',
+            },
+            {
               path: '/admin',
               name: 'admin',
               icon: 'crown',
