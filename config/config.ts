@@ -2,9 +2,7 @@
 import { defineConfig } from 'umi';
 import defaultSettings from './defaultSettings';
 import proxy from './proxy';
-
 const { REACT_APP_ENV } = process.env;
-
 export default defineConfig({
   hash: true,
   antd: {},
@@ -34,6 +32,17 @@ export default defineConfig({
           name: 'login',
           path: '/user/login',
           component: './user/login',
+        },
+        {
+          name: 'register-result',
+          icon: 'smile',
+          path: '/user/register-result',
+          component: './user/RegisterResult',
+        },
+        {
+          name: 'register',
+          path: '/user/register',
+          component: './user/register',
         },
       ],
     },
