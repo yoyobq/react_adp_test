@@ -1,7 +1,9 @@
+import styles from './NewPage.less';
 // 这是一个简单的页面
 // 主要参考了 https://pro.ant.design/docs/new-page-cn 描述完成
 export default() => {
-  return <div class="testStyle">Test01 New Blank Page</div>
+  // return <div class={styles.testStyle}>Test01 New Blank Page</div>
+  return element;
 }
 
 // 上述页面没有讨论路由的添加方式在此一并记录
@@ -20,3 +22,12 @@ export default() => {
 // component 页面实际的位置，不需要后缀
 
 // 最后一题同名的.less样式，似乎没法为本页面默认加载CSS样式（基于200417的理解）
+// 根据 welcome.less 和 welcom.tsx 页面中的css引用形式修改了代码，成功引入了css样式
+
+const name = 'Alex';
+const element = <h1>hello, {name}</h1>;
+
+// ReactDOM.render(
+//   element,
+//   document.getElementById('root')
+// );
