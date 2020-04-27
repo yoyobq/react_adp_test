@@ -81,9 +81,9 @@ export default defineConfig({
                   path: '/Test/Test02',
                   name: 'tic-tac-toe',
                   icon: 'Number',
-                  component: './TestPages/Test02TicTacToe/index',
+                  component: './TestPages/Test02TicTacToe/TicTacToe',
                 },
-              ]
+              ],
             },
             {
               path: '/admin',

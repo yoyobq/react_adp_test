@@ -6,7 +6,9 @@ import styles from './NewPage.less';
 // 主要参考了 https://pro.ant.design/docs/new-page-cn 描述完成
 const name = 'Alex';
 const element = (
+  // 双引号，就是字符串
   <div id="root">
+    {/* 大括号{} 就是js表达式 */}
     <h1>hello, {name}</h1>
     <div className={styles.testStyle}>Test01 New Blank Page</div>
   </div>
