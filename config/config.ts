@@ -85,7 +85,7 @@ export default defineConfig({
                 },
                 {
                   path: '/Test/Test03',
-                  name: '03 Choice Component',
+                  name: '03 ChoiceComponent',
                   icon: 'Select',
                   component: './TestPages/Test03ChoiceComponent/ChoiceComponent',
                 },
