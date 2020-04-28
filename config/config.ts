@@ -73,13 +73,19 @@ export default defineConfig({
               routes: [
                 {
                   path: '/Test/Test01',
-                  name: 'Test01BlankPage',
+                  name: '01 BlankPage',
                   icon: 'Bulb',
                   component: './TestPages/Test01BlankPage/NewPage',
                 },
                 {
                   path: '/Test/Test02',
-                  name: 'tic-tac-toe',
+                  name: '02 Component&props',
+                  icon: 'Build',
+                  component: './TestPages/Test02Component&props/Component&props',
+                },
+                {
+                  path: '/Test/TestNaN',
+                  name: 'NaN tic-tac-toe',
                   icon: 'Number',
                   component: './TestPages/Test02TicTacToe/TicTacToe',
                 },

@@ -9,8 +9,8 @@
 // // 将官网的HTML内容的载入方式，参考的是 Welcome.tsx中的方法
 // export default (): React.ReactNode => (
 //   <PageHeaderWrapper>
-//     <div id="errors" className={styles.errors}></div>
-//     <div id="root"><Game></Game></div>
+//     <div id="errors" className={styles.errors} />
+//     <div id="root"><Game /></div>
 //   </PageHeaderWrapper>
 // );
 
@@ -54,20 +54,20 @@
 //     return (
 //       <button
 //         className={styles.square}
+//         type="button"
 //         onClick={ () => { this.setState({value: 'X'}); }}
 //       >
 //         {/* 下面这行代码有些问题，暂不处理 */}
-//         {/* {this.state.value} */}
+//         {this.state.value}
 //       </button>
-//     );
+//      )
 //   }
 // }
 
 // class Board extends React.Component {
 //   renderSquare(i: any) {
 //     {/* 下面这行代码有些问题，暂不处理，问题似乎出在数据类型的定义上 */}
-//     // return <Square value={i} />;
-//     return <Square />;
+//     return <Square value={i} />;
 //   }
 
 //   render() {
