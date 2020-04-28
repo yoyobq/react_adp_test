@@ -84,10 +84,16 @@ export default defineConfig({
                   component: './TestPages/Test02Component&props/Component&props',
                 },
                 {
+                  path: '/Test/Test03',
+                  name: '03 Choice Component',
+                  icon: 'Select',
+                  component: './TestPages/Test03ChoiceComponent/ChoiceComponent',
+                },
+                {
                   path: '/Test/TestNaN',
                   name: 'NaN tic-tac-toe',
                   icon: 'Number',
-                  component: './TestPages/Test02TicTacToe/TicTacToe',
+                  component: './TestPages/TestTicTacToe/TicTacToe',
                 },
               ],
             },
