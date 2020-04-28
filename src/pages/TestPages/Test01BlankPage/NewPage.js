@@ -4,6 +4,7 @@ import styles from './NewPage.less';
 
 // 这是一个简单的ADP页面
 // 主要参考了 https://pro.ant.design/docs/new-page-cn 描述完成
+// 请注意，这个页面并不是TS页面，而是JS页面，和其他页面不同
 const name = 'Alex';
 const element = (
   // 双引号，就是字符串

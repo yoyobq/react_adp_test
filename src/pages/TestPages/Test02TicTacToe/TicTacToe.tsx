@@ -1,18 +1,18 @@
-// // 这是Test系列的第二张页面，目的是完成一个井字棋
-// // 思路来自 reactjs.org 的官方教程
-// // 主要参考了 https://zh-hans.reactjs.org/tutorial/tutorial.html 描述完成
-// import { PageHeaderWrapper } from '@ant-design/pro-layout'; // 自动生成页面头部的map链接
-// import React from 'react';
-// import styles from './TicTacToe.less';
+// 这是Test系列的第二张页面，目的是完成一个井字棋
+// 思路来自 reactjs.org 的官方教程
+// 主要参考了 https://zh-hans.reactjs.org/tutorial/tutorial.html 描述完成
+import { PageHeaderWrapper } from '@ant-design/pro-layout'; // 自动生成页面头部的map链接
+import React from 'react';
+import styles from './TicTacToe.less';
 
-// // 页面布局，参考的是官网教程，由于官网提供的是全新页面的制作，并非ADP
-// // 将官网的HTML内容的载入方式，参考的是 Welcome.tsx中的方法
-// export default (): React.ReactNode => (
-//   <PageHeaderWrapper>
-//     <div id="errors" className={styles.errors} />
-//     <div id="root"><Game /></div>
-//   </PageHeaderWrapper>
-// );
+// 页面布局，参考的是官网教程，由于官网提供的是全新页面的制作，并非ADP
+// 将官网的HTML内容的载入方式，参考的是 Welcome.tsx中的方法
+export default (): React.ReactNode => (
+  <PageHeaderWrapper>
+    <div id="errors" className={styles.errors} />
+    {/* <div id="root"><Game /></div> */}
+  </PageHeaderWrapper>
+);
 
 // // window.addEventListener('mousedown', function(e: any) {
 // //   document.body.classList.add('mouse-navigation');
