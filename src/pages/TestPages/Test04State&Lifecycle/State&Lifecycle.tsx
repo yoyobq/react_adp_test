@@ -26,7 +26,6 @@ class Clock extends React.Component {
   // 这个timerID的定义也很有意思，虽然代码可行，带目前还不是非常理解
   // 比如这个形式到底是在声明类型，还是在利用赋值确定数据类型
   // 再比如这种会变化的内容，到底应不应该放在State里，从运行结果来看，放和不放都可以在页面上调用
-
   timerID: any;
 
   // (2)做个构造函数，为this.state赋初值
