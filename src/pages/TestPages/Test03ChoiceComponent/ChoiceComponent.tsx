@@ -24,7 +24,7 @@ const question: any = {
 };
 // 测试JSON对象是否合法
 // const QuestStr: any = JSON.stringify(Question);
-// 第一步，先做一个传统的单选题组件
+// 先做一个传统的单选题组件
 // function Choice(): any {
 //   // 注意： 组件名称必须以大写字母开头。小写字母开头的会被认为是原生组件，如<div>
 //   return (
