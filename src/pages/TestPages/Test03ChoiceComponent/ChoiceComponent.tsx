@@ -4,9 +4,9 @@
 /* eslint-disable jsx-a11y/label-has-for */
 // 自主试验，做一个单选题的组合Component
 // 引入antd相关组件
+import { PageHeaderWrapper } from '@ant-design/pro-layout'; // 自动生成页面头部的map链接
 import { Radio } from 'antd';
 import React from 'react';
-import { PageHeaderWrapper } from '@ant-design/pro-layout'; // 自动生成页面头部的map链接
 import styles from './ChoiceComponent.less';
 
 // 模拟从数据库取得数据，造一个包含了题号，题目，题图（可能有）ABCD选项，答案等内容的选择题
@@ -59,26 +59,34 @@ const question: any = {
 //   );
 // }
 
-// 第一步，先社会主义改造成基于antd的Radio
+// 先社会主义改造成基于antd的Radio（1）
 class ChoiceApp extends React.Component {
   state = {
     value: 1,
   };
 
-  onChange = (e: any) => {
-    // console.log('radio checked', e.target.value);
+  // 箭头函数的TS改造
+  onChange: any = (e: any) => {
+    console.log('radio checked', e.target.value);
     this.setState({
       value: e.target.value,
     });
   };
 
+  // react class 必须实现的方法
   render() {
+    // 这里的{  } 是在设置 JSX的属性
     const { value } = this.state;
+
     return (
       <div>
-        <h1>
+        {/* 这个组件略复杂，可以考虑提取一部分内容做成单独的组件，
+        以下注释掉的代码是改造（1）时留存的内容 */}
+        {/* <h1>
           {question.id}.{question.quest}
-        </h1>
+        </h1> */}
+        {/* 然后进行（2）提取题头（编号+题目）组件的改造 */}
+        <Title id={question.id} quest={question.quest} />
         <Radio.Group onChange={this.onChange} value={value}>
           <Radio className={styles.radioStyle} value="A">
             A {question.optA}
@@ -96,6 +104,15 @@ class ChoiceApp extends React.Component {
       </div>
     );
   }
+}
+
+// （2）中单独提取的题头部分
+function Title(props: any) {
+  return (
+    <h1>
+      {props.id}.{props.quest}
+    </h1>
+  );
 }
 
 export default (): React.ReactNode => (

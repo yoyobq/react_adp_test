@@ -90,6 +90,12 @@ export default defineConfig({
                   component: './TestPages/Test03ChoiceComponent/ChoiceComponent',
                 },
                 {
+                  path: '/Test/Test04',
+                  name: '04 State&Lifecycle',
+                  icon: 'Hourglass',
+                  component: './TestPages/Test04State&Lifecycle/State&Lifecycle',
+                },
+                {
                   path: '/Test/TestNaN',
                   name: 'NaN tic-tac-toe',
                   icon: 'Number',
