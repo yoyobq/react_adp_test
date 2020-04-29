@@ -68,7 +68,7 @@ export default defineConfig({
             {
               path: '/Test',
               name: 'TestPage',
-              icon: 'Tool',
+              icon: 'environment',
               authority: ['admin'],
               routes: [
                 {
@@ -94,6 +94,12 @@ export default defineConfig({
                   name: '04 State&Lifecycle',
                   icon: 'Hourglass',
                   component: './TestPages/Test04State&Lifecycle/State&Lifecycle',
+                },
+                {
+                  path: '/Test/Test05',
+                  name: '05 Event',
+                  icon: 'Tool',
+                  component: './TestPages/Test05Event/Event',
                 },
                 {
                   path: '/Test/TestNaN',
