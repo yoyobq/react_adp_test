@@ -40,13 +40,24 @@ class Toggle extends React.Component {
   handleClick() {
     // 这里的this就是 JSX Toggle
     console.log('this is:', this);
-    // error    Use callback in setState when referencing the previous state  react/no-access-state-in-setstate
+    // 下面这句话，有两个关键的地方（基于2020/05/01的理解）
+    /*
+     * 1 利用 this.setState( ) 进行赋值的时候，系统提示，
+     * Use callback in setState when referencing the previous state
+     * 赋值方式必须是一个回调函数，所以写成了callback的形式，
+     * 这里提醒了我们，JS的异步勿忘，错误的写法如下
+     */
+
     // this.setState({
     //   isToggleOn: !this.state.isToggleOn
     // });
-    // this.setState(state => ({
-    //   isToggleOn: !this.state.isToggleOn
-    // }));
+    /*
+     * 2 (state) => {  } TS回调函数，勿忘定义参数的数据类型
+     *   这么写显然是不行的。考虑到state是个object，所以给 state: any，这样的定义
+     */
+    this.setState((state: any) => ({
+      isToggleOn: !state.isToggleOn,
+    }));
   }
 
   render() {
