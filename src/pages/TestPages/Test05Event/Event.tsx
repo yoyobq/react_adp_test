@@ -1,4 +1,5 @@
 // React 组件（component）和 props 的自学页面
+import { message } from 'antd';
 import { PageHeaderWrapper } from '@ant-design/pro-layout'; // 自动生成页面头部的map链接
 import React from 'react';
 // import styles from './Event.less';
@@ -8,8 +9,7 @@ function ActionLink() {
     // 阻止默认事件，
     // 注意，在html里写return false;对于recat来说是不行的，当然，这种写法本身也过于丑陋，就不提了。
     event.preventDefault();
-    console.log('The link was clicked.');
-    alert('NO NO NONO NO');
+    message.info('你再点我一次看看！！');
   }
 
   // 关于传递的event浏览器事件，详见https://zh-hans.reactjs.org/docs/events.html
@@ -34,12 +34,10 @@ class Toggle extends React.Component {
     };
 
     // 为了在回调中使用 `this`，这个绑定是必不可少的
-    this.handleClick = this.handleClick.bind(this);
+    this.handleBtnClick = this.handleBtnClick.bind(this);
   }
 
-  handleClick() {
-    // 这里的this就是 JSX Toggle
-    console.log('this is:', this);
+  handleBtnClick() {
     // 下面这句话，有两个关键的地方（基于2020/05/01的理解）
     /*
      * 1 利用 this.setState( ) 进行赋值的时候，系统提示，
@@ -56,6 +54,7 @@ class Toggle extends React.Component {
      *   这么写显然是不行的。考虑到state是个object，所以给 state: any，这样的定义
      */
     this.setState((state: any) => ({
+      // 这里的this就是 JSX Toggle
       isToggleOn: !state.isToggleOn,
     }));
   }
@@ -65,7 +64,7 @@ class Toggle extends React.Component {
       // class 的方法默认不会绑定 this。如果你忘记把 this.handleClick 绑定到 onClick 事件，
       // 当你调用这个函数的时候 this 的值为 undefined。
       // error    Missing an explicit type attribute for button
-      <button type="button" onClick={this.handleClick}>
+      <button type="button" onClick={this.handleBtnClick}>
         {this.state.isToggleOn ? 'ON' : 'OFF'}
       </button>
     );
