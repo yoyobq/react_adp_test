@@ -102,6 +102,12 @@ export default defineConfig({
                   component: './TestPages/Test05Event/Event',
                 },
                 {
+                  path: '/Test/Test06',
+                  name: '06 Rendering',
+                  icon: 'Clear',
+                  component: './TestPages/Test06Rendering/Rendering',
+                },
+                {
                   path: '/Test/TestNaN',
                   name: 'NaN tic-tac-toe',
                   icon: 'Number',
