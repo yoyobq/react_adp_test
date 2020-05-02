@@ -42,8 +42,7 @@ class Toggle extends React.Component {
     /*
      * 1 利用 this.setState( ) 进行赋值的时候，系统提示，
      * Use callback in setState when referencing the previous state
-     * 赋值方式必须是一个回调函数，所以写成了callback的形式，
-     * 这里提醒了我们，JS的异步勿忘，错误的写法如下
+     * 引用前一个状态时在setState中需要使用回调函数，所以不写回调会报错
      */
 
     // this.setState({

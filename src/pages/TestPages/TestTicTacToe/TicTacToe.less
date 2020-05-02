@@ -1,59 +1,60 @@
-// // body {
-// //   font: 14px "Century Gothic", Futura, sans-serif;
-// //   margin: 20px;
-// // }
-
-// ol, ul {
-//   padding-left: 30px;
+// body {
+//   font: 14px "Century Gothic", Futura, sans-serif;
+//   margin: 20px;
 // }
 
-// .boardRow:after {
-//   clear: both;
-//   content: "";
-//   display: table;
-// }
+ol,
+ul {
+  padding-left: 30px;
+}
 
-// .status {
-//   margin-bottom: 10px;
-// }
+.boardRow::after {
+  display: table;
+  clear: both;
+  content: ' ';
+}
 
-// .square {
-//   background: #fff;
-//   border: 1px solid #999;
-//   float: left;
-//   font-size: 42px;
-//   font-weight: bold;
-//   line-height: 68px;
-//   height: 68px;
-//   margin-right: -1px;
-//   margin-top: -1px;
-//   padding: 0;
-//   text-align: center;
-//   width: 68px;
-// }
+.status {
+  margin-bottom: 10px;
+}
 
-// .square:focus {
-//   outline: none;
-// }
+.square {
+  float: left;
+  width: 68px;
+  height: 68px;
+  margin-top: -1px;
+  margin-right: -1px;
+  padding: 0;
+  font-weight: bold;
+  font-size: 42px;
+  line-height: 68px;
+  text-align: center;
+  background: #fff;
+  border: 1px solid #999;
+}
 
-// .kbd-navigation .square:focus {
-//   background: #ddd;
-// }
+.square:focus {
+  outline: none;
+}
 
-// .game {
-//   display: flex;
-//   flex-direction: row;
-// }
+.kbd-navigation .square:focus {
+  background: #ddd;
+}
 
-// .game-info {
-//   margin-left: 20px;
-// }
+.game {
+  display: flex;
+  flex-direction: row;
+}
 
-// .error {
-//   background: #c00;
-//   color: #fff;
-//   display: none;
-//   margin: -20px -20px 20px;
-//   padding: 20px;
-//   white-space: pre-wrap;
-// }
+.game-info {
+  margin-left: 20px;
+}
+
+.error {
+  display: none;
+  margin: -20px -20px 20px;
+  padding: 20px;
+  color: #fff;
+  white-space: pre-wrap;
+  background: #c00;
+}
