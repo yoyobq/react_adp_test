@@ -14,7 +14,7 @@ function ActionLink() {
 
   // 关于传递的event浏览器事件，详见https://zh-hans.reactjs.org/docs/events.html
   return (
-    // 传递的其实是浏览器事件
+    // 传递的其实是浏览器事件，注意一个细节 onClick 不是 onclick
     <a href="#" onClick={handleClick}>
       Click me
     </a>
@@ -33,7 +33,8 @@ class Toggle extends React.Component {
       isToggleOn: true,
     };
 
-    // 为了在回调中使用 `this`，这个绑定是必不可少的
+    // 为了在方法中使用 `this`，这个绑定是必不可少的
+    // 关于这一段比较复杂，oneNote里相关笔记有详解
     this.handleBtnClick = this.handleBtnClick.bind(this);
   }
 
@@ -52,17 +53,19 @@ class Toggle extends React.Component {
      * 2 (state) => {  } TS回调函数，勿忘定义参数的数据类型
      *   这么写显然是不行的。考虑到state是个object，所以给 state: any，这样的定义
      */
+    // 这里的this就是 JSX Toggle
+    // 如果没有在construtor中bind()，这里的this就不一定是当前的Toggle
+    // class 的方法默认不会绑定 this。如果你忘记把 this.handleClick 绑定到 onClick 事件，
+    // 当你调用这个函数的时候 this 的值为 undefined。
     this.setState((state: any) => ({
-      // 这里的this就是 JSX Toggle
       isToggleOn: !state.isToggleOn,
     }));
   }
 
   render() {
     return (
-      // class 的方法默认不会绑定 this。如果你忘记把 this.handleClick 绑定到 onClick 事件，
-      // 当你调用这个函数的时候 this 的值为 undefined。
-      // error    Missing an explicit type attribute for button
+      // 此处有个小坑，TS里的button，必须注明type，否则会跳错误
+      // Missing an explicit type attribute for button
       <button type="button" onClick={this.handleBtnClick}>
         {this.state.isToggleOn ? 'ON' : 'OFF'}
       </button>
@@ -70,9 +73,7 @@ class Toggle extends React.Component {
   }
 }
 
-// 此处有一问，与Test01中相比，多了 React.ReactNode, 这就是TS要求的，给数据类型（一个React结点）
 export default (): React.ReactNode => (
-  // 此标签的作用是在页面首部提供一个面包屑页头
   <PageHeaderWrapper>
     <ActionLink />
     <br />
