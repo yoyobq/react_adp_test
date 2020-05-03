@@ -5,6 +5,13 @@ import { PageHeaderWrapper } from '@ant-design/pro-layout'; // 自动生成页�
 import React from 'react';
 import styles from './TicTacToe.less';
 
+// 为JSX定义新的属性及类型，解决TS代码里，JSX上自定义属性报错的方法
+declare namespace JSX {
+  interface ElementAttributesProperty {
+    props: any; // specify the property name to use
+  }
+}
+
 // window.addEventListener('mousedown', function(e: any) {
 //   document.body.classList.add('mouse-navigation');
 //   document.body.classList.remove('kbd-navigation');
@@ -34,6 +41,11 @@ import styles from './TicTacToe.less';
 // })(console.error);
 
 class Square extends React.Component {
+  // 此处!感叹号的含义是，使用类型断言手动去除props是undefined或null的可能性。
+  props!: {
+    value: string;
+  };
+
   // 定义 state.value
   state = {
     value: null,
@@ -42,7 +54,7 @@ class Square extends React.Component {
   constructor(props: any) {
     super(props);
     // 注意 data-value后，取值方式的改动
-    this.state.value = props['data-value'];
+    this.state.value = props.value;
   }
 
   render() {
@@ -74,7 +86,7 @@ class Board extends React.Component {
     // 这边的value报错，看来和传值无关，猜想是自定义属性的问题，教程中提供的value，并不是一个合法的html自定义属性
     // 从html5开始，有一套很方便的自定义属性的方式  data-xxxx，获取自定义属性则是 dataset.xxxx 方法
     // return <Square value={i} />;
-    return <Square data-value={i} />;
+    return <Square value={i} />;
   }
 
   render() {
