@@ -88,7 +88,7 @@ class Greeting extends React.Component {
 
 export default (): React.ReactNode => (
   <PageHeaderWrapper>
-    {/* 这里有个小坑，boolean的props是不能写成 isShown={true} 否则git commit的时候报错 */}
+    {/* 这里有个小坑，boolean的props是不能写成 isShown={true} 而应该直接写 isShown 即可否则git commit的时候报错 */}
     <Greeting isShown={false} />
     {/* 原本想结合Test05的内容做一个可以切换显示的按钮，发现还需要后面的知识，暂时留空 */}
     {/* 此按钮暂时无效 */}
