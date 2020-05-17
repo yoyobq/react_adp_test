@@ -142,15 +142,19 @@ const messages = ['React', 'Re: React', 'Re:Re: React'];
 export default (): React.ReactNode => (
   <PageHeaderWrapper>
     {/* 这里有个小坑，boolean的props是不能写成 isShown={true} 而应该直接写 isShown 即可否则git commit的时候报错 */}
-    <h2>基本例子，代码里的Greeting部分</h2>
+    <h2>1 基本例子，代码里的Greeting部分</h2>
     <Greeting isShown={false} />
     {/* 原本想结合Test05的内容做一个可以切换显示的按钮，发现还需要后面的知识，暂时留空 */}
     <div>此按钮暂时无效</div>
     <Toggle />
     <hr />
-    <h2>与运算符的例子，代码里的&&</h2>
+    <h2>2 与运算符的例子，代码里的&&</h2>
     <Mailbox unreadMessages={messages} />
     <hr />
+    <h2>3 三目运算符的例子</h2>
     <Greeting2 isShown />
+    <hr />
+    <h2>4 终止渲染内容请见代码中相关注释</h2>
+    {/* <WarningBanner /> */}
   </PageHeaderWrapper>
 );
