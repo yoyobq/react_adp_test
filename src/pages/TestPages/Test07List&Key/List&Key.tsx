@@ -15,17 +15,24 @@ function List(): Array<JSX.Element> {
   // Type 'Element[]' is missing the following properties from type 'Element': type, props, keyts(2605)
   // 原因是期待的是一个JSX对象，而不是现在这样的子元素列表（数组）
   // 其实就是 <li>xxx</li><li>ooo</li>显然不完整
-  // 当然有个简单的办法，就是套个<ol>的外壳返回JSX，可是我偏不,我就是想作妖，于是请看OrderList部分
+  // 当然有个简单的办法，就是套个<ol>的外壳返回JSX，但我想作作妖，于是请看OrderList部分
   return listItems;
 }
 
+// 请看下一段的激进升级版本
+// function OrderList(): JSX.Element {
+//   return (
+//     <ol>{List()}</ol>
+//   );
+// };
+
 // 定义返回内容是个JSX元素
-function OrderList(): JSX.Element {
+const OrderList: React.FC<{}> = () => {
   return (
     // ADP中有个全局设定 list-sytle：none，所以看不到默认的1，2，3，4
     <ol>{List()}</ol>
   );
-}
+};
 
 // class Hello extends React.Component {
 //   state = {
