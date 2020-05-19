@@ -108,6 +108,12 @@ export default defineConfig({
                   component: './TestPages/Test06Rendering/Rendering',
                 },
                 {
+                  path: '/Test/Test07',
+                  name: '07 List&Key',
+                  icon: 'OrderedList',
+                  component: './TestPages/Test07List&Key/List&Key',
+                },
+                {
                   path: '/Test/TestNaN',
                   name: 'NaN tic-tac-toe',
                   icon: 'Number',
