@@ -67,7 +67,7 @@ class ChoiceApp extends React.Component {
 
   // 箭头函数的TS改造
   onChange: any = (e: any) => {
-    console.log('radio checked', e.target.value);
+    // console.log('radio checked', e.target.value);
     this.setState({
       value: e.target.value,
     });
