@@ -1,29 +1,60 @@
-// 一个真正的BlankPage
-import { PageHeaderWrapper } from '@ant-design/pro-layout'; // 自动生成页面头部的map链接
+import { PageHeaderWrapper } from '@ant-design/pro-layout';
+import { Button, Card, Form, Input, message } from 'antd';
+import { Store } from 'antd/es/form/interface';
 import React from 'react';
 import styles from './Form.less';
 
-function Welcome(props: any): any {
-  return <h1 className={styles.testStyle}>Hello, {props.name}</h1>;
-}
+const layout = {
+  labelCol: { span: 4 },
+  wrapperCol: { span: 20 },
+};
 
-class Hello extends React.Component {
-  state = {
-    data: null,
+const tailLayout = {
+  wrapperCol: { offset: 4, span: 20 },
+};
+
+class NameForm extends React.Component {
+  // constructor(props: any) {
+  //   super(props);
+  // };
+
+  onFinish = (values: Store) => {
+    // console.log('Success:', values);
+    message.info(`${values.username}你好，表单提交成功！`);
   };
 
-  constructor(props: any) {
-    super(props);
-    this.state.data = props['data-data'];
-  }
+  onFinishFailed = (errorInfo: Store) => {
+    // console.log('Failed:', errorInfo);
+    message.error(errorInfo.errorFields[0].errors);
+  };
 
   render() {
-    return <div className={styles['test-Style']}>{this.state.data}</div>;
+    return (
+      <Form
+        {...layout}
+        name="nameForm"
+        onFinish={this.onFinish}
+        onFinishFailed={this.onFinishFailed}
+      >
+        <Form.Item
+          label="名字"
+          name="username"
+          rules={[{ required: true, message: 'Please input your username!' }]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item {...tailLayout}>
+          <Button htmlType="submit">Submit</Button>
+        </Form.Item>
+      </Form>
+    );
   }
 }
+
 export default (): React.ReactNode => (
   <PageHeaderWrapper>
-    <Welcome name="Alex" />
-    <Hello data-data="Hi, Friend" />
+    <Card className={styles.pre}>
+      <NameForm />
+    </Card>
   </PageHeaderWrapper>
 );
