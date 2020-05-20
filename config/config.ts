@@ -114,6 +114,12 @@ export default defineConfig({
                   component: './TestPages/Test07List&Key/List&Key',
                 },
                 {
+                  path: '/Test/Test08',
+                  name: '08 Form',
+                  icon: 'Snippets',
+                  component: './TestPages/Test08Form/Form',
+                },
+                {
                   path: '/Test/TestNaN',
                   name: 'NaN tic-tac-toe',
                   icon: 'Number',
