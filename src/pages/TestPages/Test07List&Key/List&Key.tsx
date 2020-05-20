@@ -1,13 +1,14 @@
 // 一个真正的BlankPage
-import React from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout'; // 自动生成页面头部的map链接
+import React from 'react';
 // import styles from './List&Key.less';
 
 const arr = [1, 2, 'c', 4, 'e'];
 // 定义返回值类型是由 JSX的Element 组成的数组
 function List(): Array<JSX.Element> {
   // map() 方法返回一个新数组，数组中的元素为原始数组元素调用函数处理后的值。
-  const listItems = arr.map((item, index) => <li>{`${index} - ${item}`}</li>);
+  // list 需要有key这个属性来作为标识，这个标识只在react中可见，如果不指定key，会在console中报错
+  const listItems = arr.map((item, index) => <li key={index}>{`${index} - ${item}`}</li>);
 
   // 如果直接返回ListItems的话，会出一个很有意思的错误
   // 渲染时候<List /> 会报告:
@@ -41,6 +42,8 @@ interface Props {
   list: Array<any>;
 }
 
+// 这种尖括号的写法<>，在typeScript在指定“泛型”
+// 具体可参考https://ts.xcatliu.com/advanced/generics
 class UnOrderList extends React.Component<Props, {}> {
   state = {
     arrList: [],
@@ -49,7 +52,9 @@ class UnOrderList extends React.Component<Props, {}> {
   constructor(props: any) {
     super(props);
     this.state.arrList = props.list.map((item: any, index: number) => (
-      <li>{`${index} - ${item}`}</li>
+      // list 需要有key这个属性来作为标识，这个标识只在react中可见
+      // 若想在html中使用key属性，需要定义其他属性名，这里就用了id
+      <li key={index} id={index.toString()}>{`${index} - ${item}`}</li>
     ));
   }
 
