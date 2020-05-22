@@ -49,22 +49,52 @@ class NameForm extends React.Component {
   }
 }
 
-interface Props {
+// 为MuTextArea组件，设置自定义变量，规定数据类型
+interface textAreaProps {
   row: number;
-  fun: string;
+  text: string;
 }
 
-// const MuTextArea: React.FC<Props> = (state: Props) => {
-//   const { TextArea } = Input;
-//   // console.log(state);
-//   return <TextArea rows={state.row}/>;
-// }
+// 用箭头函数的形式定义MuTextArea组件，为了测试组合组件，故意多次一举
+// tips：const并不是内容不变，而是内存指向不变
+const MuTextArea: React.FC<textAreaProps> = (state: textAreaProps) => {
+  // 此处参照AntDesgin的的TextArea用法，详见AD相关页面
+  const { TextArea } = Input;
+  const onFinish = (values: Store) => {
+    console.log(state);
+    message.info(`${values.ins}`);
+  };
+
+  return (
+    <Form
+      {...layout}
+      name="textAreaForm"
+      onFinish={onFinish}
+      // 给默认值的方法
+      initialValues={{ ins: state.text }}
+    >
+      <Form.Item
+        label="简介"
+        // 一旦给了name，就是受控模式，deafultValue宣告无效
+        name="ins"
+        rules={[{ required: true, message: 'Please input sth!' }]}
+      >
+        <TextArea rows={state.row} />
+      </Form.Item>
+      <Form.Item {...tailLayout}>
+        <Button htmlType="submit">Submit</Button>
+      </Form.Item>
+    </Form>
+  );
+};
 
 export default (): React.ReactNode => (
   <PageHeaderWrapper>
     <Card className={styles.pre}>
       <NameForm />
     </Card>
-    <Card className={styles.pre}>{/* <MuTextArea row={4} fun={'aaaa'}/> */}</Card>
+    <Card className={styles.pre}>
+      <MuTextArea row={4} text="hello, this is a textArea." />
+    </Card>
   </PageHeaderWrapper>
 );
