@@ -1,5 +1,5 @@
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import { Button, Card, Form, Input, message } from 'antd';
+import { Button, Card, Form, Input, message, Select } from 'antd';
 import { Store } from 'antd/es/form/interface';
 import React from 'react';
 import styles from './Form.less';
@@ -61,7 +61,7 @@ const MuTextArea: React.FC<textAreaProps> = (state: textAreaProps) => {
   // 此处参照AntDesgin的的TextArea用法，详见AD相关页面
   const { TextArea } = Input;
   const onFinish = (values: Store) => {
-    console.log(state);
+    // console.log(state);
     message.info(`${values.ins}`);
   };
 
@@ -88,6 +88,40 @@ const MuTextArea: React.FC<textAreaProps> = (state: textAreaProps) => {
   );
 };
 
+const SelectList: React.FC<{}> = () => {
+  const { Option } = Select;
+
+  // const handleChange = (value: any) => {
+  //   // console.log(`selected ${value}`);
+  // };
+
+  return (
+    <>
+      <Select
+        defaultValue="lucy"
+        style={{ width: 120 }}
+        // onChange={handleChange}
+      >
+        <Select.Option value="jack">Jack</Select.Option>
+        <Option value="lucy">Lucy</Option>
+        <Option value="disabled" disabled>
+          Disabled
+        </Option>
+        <Option value="Yiminghe">yiminghe</Option>
+      </Select>
+      <Select defaultValue="lucy" style={{ width: 120 }} disabled>
+        <Option value="lucy">Lucy</Option>
+      </Select>
+      <Select defaultValue="lucy" style={{ width: 120 }} loading>
+        <Option value="lucy">Lucy</Option>
+      </Select>
+      <Select defaultValue="lucy" style={{ width: 120 }} allowClear>
+        <Option value="lucy">Lucy</Option>
+      </Select>
+    </>
+  );
+};
+
 export default (): React.ReactNode => (
   <PageHeaderWrapper>
     <Card className={styles.pre}>
@@ -95,6 +129,9 @@ export default (): React.ReactNode => (
     </Card>
     <Card className={styles.pre}>
       <MuTextArea row={4} text="hello, this is a textArea." />
+    </Card>
+    <Card className={styles.pre}>
+      <SelectList />
     </Card>
   </PageHeaderWrapper>
 );

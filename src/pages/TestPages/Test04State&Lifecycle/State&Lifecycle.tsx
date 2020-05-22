@@ -34,11 +34,11 @@ class Clock extends React.Component {
     // (2) 想要为 state.date 赋值
     // ！！！（此理解有误）经测试这两个方法都行，但看ADP的范例代码里用了 setState 方法！！！
     // 方法B是官网推荐的在构造函数中修改state的方法，方法A用于其他场合
-    // 这是方法A
+    // 这是方法A（用于其他场合）
     // this.setState({
     //   date: new Date(),
     // });
-    // 这是方法B
+    // 这是方法B（用于构造函数）
     this.state.date = new Date();
   }
 
