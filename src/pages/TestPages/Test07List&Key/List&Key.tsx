@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 // 一个真正的BlankPage
 import { PageHeaderWrapper } from '@ant-design/pro-layout'; // 自动生成页面头部的map链接
 import React from 'react';
@@ -8,6 +9,9 @@ const arr = [1, 2, 'c', 4, 'e'];
 function List(): Array<JSX.Element> {
   // map() 方法返回一个新数组，数组中的元素为原始数组元素调用函数处理后的值。
   // list 需要有key这个属性来作为标识，这个标识只在react中可见，如果不指定key，会在console中报错
+  // 此处并不推荐用index为key复制，回警告：Do not use Array index in keys
+  // 理由是array的增删改插入等操作容易引起index的混乱，建议用代码中设计的id为key赋值，
+  // [{id:1, name:'alex'},{id:2, name:'tom'}] 此例中的id即为一个好的 key 选择
   const listItems = arr.map((item, index) => <li key={index}>{`${index} - ${item}`}</li>);
 
   // 如果直接返回ListItems的话，会出一个很有意思的错误
