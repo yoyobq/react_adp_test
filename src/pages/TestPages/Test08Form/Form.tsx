@@ -15,6 +15,7 @@ const tailLayout = {
 };
 
 // 和官网的例子相比，虽然功能一致，但构建代码了较大的变化详情请看ant desgin/form相关页面
+// 由于adp中的表单控件和原生的React表单控件差别较大，这里就列3个adp的表单，不多赘述了。
 class NameForm extends React.Component {
   onFinish = (values: Store) => {
     // console.log('Success:', values);
@@ -91,34 +92,28 @@ const MuTextArea: React.FC<textAreaProps> = (state: textAreaProps) => {
 const SelectList: React.FC<{}> = () => {
   const { Option } = Select;
 
-  // const handleChange = (value: any) => {
-  //   // console.log(`selected ${value}`);
-  // };
+  const handleChange = (value: any) => {
+    message.info(`selected ${value}`);
+  };
 
   return (
-    <>
-      <Select
-        defaultValue="lucy"
-        style={{ width: 120 }}
-        // onChange={handleChange}
+    <Form {...layout}>
+      <Form.Item
+        label="水果"
+        // 一旦给了name，就是受控模式，deafultValue宣告无效
+        name="fruit"
       >
-        <Select.Option value="jack">Jack</Select.Option>
-        <Option value="lucy">Lucy</Option>
-        <Option value="disabled" disabled>
-          Disabled
-        </Option>
-        <Option value="Yiminghe">yiminghe</Option>
-      </Select>
-      <Select defaultValue="lucy" style={{ width: 120 }} disabled>
-        <Option value="lucy">Lucy</Option>
-      </Select>
-      <Select defaultValue="lucy" style={{ width: 120 }} loading>
-        <Option value="lucy">Lucy</Option>
-      </Select>
-      <Select defaultValue="lucy" style={{ width: 120 }} allowClear>
-        <Option value="lucy">Lucy</Option>
-      </Select>
-    </>
+        <Select defaultValue={1} onChange={handleChange}>
+          {/* 从这段代码来讲，adp同时支持value是数值或是字符串 */}
+          <Select.Option value={1}>葡萄柚</Select.Option>
+          <Option value="lime">酸橙</Option>
+          <Option value="coconut" disabled>
+            椰子
+          </Option>
+          <Option value="mango">芒果</Option>
+        </Select>
+      </Form.Item>
+    </Form>
   );
 };
 
