@@ -120,6 +120,12 @@ export default defineConfig({
                   component: './TestPages/Test08Form/Form',
                 },
                 {
+                  name: '09 LiftingStateUp',
+                  icon: 'ToTop',
+                  path: '/test/test09',
+                  component: './TestPages/Test09LiftingStateUp',
+                },
+                {
                   path: '/Test/TestNaN',
                   name: 'NaN tic-tac-toe',
                   icon: 'Number',
