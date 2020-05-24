@@ -27,27 +27,20 @@ class NameForm extends React.Component {
     message.error(errorInfo.errorFields[0].errors);
   };
 
-  render() {
-    return (
-      <Form
-        {...layout}
-        name="nameForm"
-        onFinish={this.onFinish}
-        onFinishFailed={this.onFinishFailed}
+  render = () => (
+    <Form {...layout} name="nameForm" onFinish={this.onFinish} onFinishFailed={this.onFinishFailed}>
+      <Form.Item
+        label="名字"
+        name="username"
+        rules={[{ required: true, message: 'Please input your username!' }]}
       >
-        <Form.Item
-          label="名字"
-          name="username"
-          rules={[{ required: true, message: 'Please input your username!' }]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item {...tailLayout}>
-          <Button htmlType="submit">Submit</Button>
-        </Form.Item>
-      </Form>
-    );
-  }
+        <Input />
+      </Form.Item>
+      <Form.Item {...tailLayout}>
+        <Button htmlType="submit">Submit</Button>
+      </Form.Item>
+    </Form>
+  );
 }
 
 // 为MuTextArea组件，设置自定义变量，规定数据类型

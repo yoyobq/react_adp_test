@@ -1,28 +1,64 @@
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import React, { useState, useEffect } from 'react';
-import { Spin } from 'antd';
+import React, { ChangeEvent } from 'react';
 import styles from './index.less';
 
-const BoilingVerdict = (props: any) => {
-  if (props.celsius >= 100) {
-    return <p>The water would boil.</p>;
-  }
-  return <p>The water would not boil.</p>;
-};
+// interface BoilingProps {
+//   celsius: number;
+// }
 
-export default (): React.ReactNode => {
-  const [loading, setLoading] = useState<boolean>(true);
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 3000);
-  }, []);
+// 先模仿官网做一个非ADP的原生React，TypeScript版本
+// const BoilingVerdict: React.FC<BoilingProps> = (props: BoilingProps) => {
+//   if (props.celsius >= 100) {
+//     return <p>The water would boil.</p>;
+//   }
+//   return <p>The water would not boil.</p>;
+// };
+
+const Calculator: React.FC = () => {
   return (
-    <PageHeaderWrapper className={styles.main}>
-      <div style={{ paddingTop: 100, textAlign: 'center' }}>
-        <Spin spinning={loading} size="large" />
-      </div>
-      <BoilingVerdict />
-    </PageHeaderWrapper>
+    <div>
+      <TemperatureInput scale="c" />
+      <TemperatureInput scale="f" />
+    </div>
   );
 };
+
+const scaleNames = {
+  c: 'Celsius',
+  f: 'Fahrenheit',
+};
+
+interface TemperatureProps {
+  scale: string;
+}
+
+class TemperatureInput extends React.Component<TemperatureProps, {}> {
+  state = {
+    temperature: '',
+  };
+
+  constructor(props: any) {
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
+    this.state = { temperature: '' };
+  }
+
+  handleChange(event: ChangeEvent<HTMLInputElement>) {
+    this.setState({ temperature: event.target.value });
+  }
+
+  render() {
+    return (
+      <fieldset>
+        <legend>Enter temperature in {scaleNames[this.props.scale]}:</legend>
+        <input value={this.state.temperature} onChange={this.handleChange} />
+      </fieldset>
+    );
+  }
+}
+
+export default (): React.ReactNode => (
+  <PageHeaderWrapper className={styles.main}>
+    <Calculator />
+  </PageHeaderWrapper>
+);
