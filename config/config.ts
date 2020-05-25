@@ -123,7 +123,7 @@ export default defineConfig({
                   name: '09 LiftingStateUp',
                   icon: 'ToTop',
                   path: '/test/test09',
-                  component: './TestPages/Test09LiftingStateUp',
+                  component: './TestPages/Test09LiftingStateUp/LiftState',
                 },
                 {
                   path: '/Test/TestNaN',
