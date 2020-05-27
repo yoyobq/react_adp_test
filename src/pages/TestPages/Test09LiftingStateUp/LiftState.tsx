@@ -1,11 +1,11 @@
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import { Card } from 'antd';
+import { Card, Form, Input } from 'antd';
 import React, { ChangeEvent } from 'react';
 import styles from './LiftState.less';
 
 // 这张网页会比较复杂，各部分会用<Card>做分割
-// 1 先模仿官网做一个非ADP的原生React，TypeScript版本
-// 1.1 最初的，通过直接赋值的方式，确定状态的组件
+// 先模仿官网做一个非ADP的原生React，TypeScript版本
+// 1 最初的，通过直接赋值的方式，确定状态的组件
 interface BoilingProps {
   celsius: number;
 }
@@ -17,7 +17,7 @@ const BoilingVerdict: React.FC<BoilingProps> = (props: BoilingProps) => {
   return <p>The water would not boil.</p>;
 };
 
-// 1.2 拥有一个input框的，根据输入判断状态的组件，不妨观察其对1.1的引用
+// 2 拥有一个input框的，根据输入判断状态的组件，不妨观察其对1.1的引用
 class CalculatorV2 extends React.Component {
   state = {
     temperature: '',
@@ -45,7 +45,7 @@ class CalculatorV2 extends React.Component {
   }
 }
 
-// 1.3 拥有两个Input框，但不能互联，也让上级组件Calcultor无法感知Input数据的初始框架
+// 3 拥有两个Input框，但不能互联，也让上级组件Calcultor无法感知Input数据的初始框架
 const CalculatorV3: React.FC = () => {
   return (
     <div>
@@ -60,11 +60,11 @@ const scaleNames = {
   f: 'Fahrenheit',
 };
 
-interface TemperatureProps_1_3 {
+interface TemperaturePropsV3 {
   scale: string;
 }
 
-class TemperatureInputV3 extends React.Component<TemperatureProps_1_3, {}> {
+class TemperatureInputV3 extends React.Component<TemperaturePropsV3, {}> {
   state = {
     temperature: '',
   };
@@ -75,9 +75,10 @@ class TemperatureInputV3 extends React.Component<TemperatureProps_1_3, {}> {
     this.state = { temperature: '' };
   }
 
-  handleChange(event: ChangeEvent<HTMLInputElement>) {
+  // 顺手做了个ES6改造，注意 => 后是 {} 和 () 的区别
+  handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     this.setState({ temperature: event.target.value });
-  }
+  };
 
   render() {
     const { temperature } = this.state;
@@ -90,7 +91,7 @@ class TemperatureInputV3 extends React.Component<TemperatureProps_1_3, {}> {
   }
 }
 
-// 1.4 拥有两个
+// 4 拥有两个
 // 下面这三个函数很有意思，由于他的功能单一，如果把他们放到一个类作为方法的话
 // 会触发 Enforce that class methods utilize this (class-methods-use-this) 这条Eslint错误
 // 显然这类函数应该移到类外部作为独立的功能存在更好，如果非要放进类的内部则应该加 static声明
@@ -110,6 +111,7 @@ const tryConvert = (temperature: any, convert: Function) => {
   const rounded = Math.round(output * 1000) / 1000;
   return rounded.toString();
 };
+
 class CalculatorV4 extends React.Component {
   state = {
     temperature: '',
@@ -153,13 +155,13 @@ class CalculatorV4 extends React.Component {
   }
 }
 
-interface TemperatureProps_1_4 {
+interface TemperaturePropsV4 {
   scale: string;
   temperature: number | string;
-  onTemperatureChange: any;
+  onTemperatureChange: Function;
 }
 
-class TemperatureInputV4 extends React.Component<TemperatureProps_1_4, {}> {
+class TemperatureInputV4 extends React.Component<TemperaturePropsV4, {}> {
   // 注意state up后 temperature 不再作为 Input的 state
   // state = {
   //   temperature: '',
@@ -191,26 +193,103 @@ class TemperatureInputV4 extends React.Component<TemperatureProps_1_4, {}> {
   }
 }
 
+// 1.5 ADP 改造
+class Calculator extends React.Component {
+  state = {
+    temperature: '',
+    scale: '',
+  };
+
+  constructor(props: any) {
+    super(props);
+    this.handleCelsiusChange = this.handleCelsiusChange.bind(this);
+    this.handleFahrenheitChange = this.handleFahrenheitChange.bind(this);
+    this.state = {
+      temperature: '',
+      scale: 'c',
+    };
+  }
+
+  handleCelsiusChange = (temperature: any) => this.setState({ scale: 'c', temperature });
+
+  handleFahrenheitChange = (temperature: any) => this.setState({ scale: 'f', temperature });
+
+  render() {
+    const { scale } = this.state;
+    const { temperature } = this.state;
+    const celsius = scale === 'f' ? tryConvert(temperature, toCelsius) : temperature;
+    const fahrenheit = scale === 'c' ? tryConvert(temperature, toFahrenheit) : temperature;
+    return (
+      <div>
+        <TemperatureInput
+          scale="c"
+          temperature={celsius}
+          onTemperatureChange={this.handleCelsiusChange}
+        />
+        <TemperatureInput
+          scale="f"
+          temperature={fahrenheit}
+          onTemperatureChange={this.handleFahrenheitChange}
+        />
+        <BoilingVerdict celsius={parseFloat(celsius)} />
+      </div>
+    );
+  }
+}
+
+interface TemperatureProps {
+  scale: string;
+  temperature: number | string;
+  onTemperatureChange: Function;
+}
+
+class TemperatureInput extends React.Component<TemperatureProps, {}> {
+  constructor(props: any) {
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(event: ChangeEvent<HTMLInputElement>) {
+    this.props.onTemperatureChange(event.target.value);
+  }
+
+  render() {
+    const { Item } = Form;
+    const { temperature } = this.props;
+    return (
+      <Form>
+        <h1>Enter temperature in {scaleNames[this.props.scale]}:</h1>
+        <Item>
+          <Input value={temperature} onChange={this.handleChange} />
+        </Item>
+      </Form>
+    );
+  }
+}
+
 export default (): React.ReactNode => (
   <PageHeaderWrapper className={styles.main}>
     <Card className={styles.pre}>
-      <h1>1.1 最初的，通过直接赋值的方式，确定状态的组件</h1>
+      <h1>1 最初的，通过直接赋值的方式，确定状态的组件</h1>
       <p>
         <BoilingVerdict celsius={100} />
         <BoilingVerdict celsius={70} />
       </p>
     </Card>
     <Card className={styles.pre}>
-      <h1>1.2 拥有一个input框的，根据输入判断状态的组件</h1>
+      <h1>2 拥有一个input框的，根据输入判断状态的组件</h1>
       <CalculatorV2 />
     </Card>
     <Card className={styles.pre}>
-      <h1>1.3 拥有两个Input框，但不能互联，也让上级组件Calcultor无法感知Input数据的初始框架</h1>
+      <h1>3 拥有两个Input框，但不能互联，也让上级组件Calcultor无法感知Input数据的初始框架</h1>
       <CalculatorV3 />
     </Card>
     <Card className={styles.pre}>
-      <h1>1.4 拥有两个Input框</h1>
+      <h1>4 拥有两个Input框</h1>
       <CalculatorV4 />
+    </Card>
+    <Card className={styles.pre}>
+      <Calculator />
     </Card>
   </PageHeaderWrapper>
 );
