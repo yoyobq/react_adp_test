@@ -126,6 +126,12 @@ export default defineConfig({
                   component: './TestPages/Test09LiftingStateUp/LiftState',
                 },
                 {
+                  name: '10Composition',
+                  icon: 'smile',
+                  path: '/test/test10',
+                  component: './TestPages/Test10Composition/Composition',
+                },
+                {
                   path: '/Test/TestNaN',
                   name: 'NaN tic-tac-toe',
                   icon: 'Number',
