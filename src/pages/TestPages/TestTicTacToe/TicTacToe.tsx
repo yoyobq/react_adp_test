@@ -1,16 +1,17 @@
-// 这是Test系列的第二张页面，目的是完成一个井字棋
-// 思路来自 reactjs.org 的官方教程
+// 井字棋游戏
 // 主要参考了 https://zh-hans.reactjs.org/tutorial/tutorial.html 描述完成
-import { PageHeaderWrapper } from '@ant-design/pro-layout'; // 自动生成页面头部的map链接
+import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import React from 'react';
 import styles from './TicTacToe.less';
 
 // 为JSX定义新的属性及类型，解决TS代码里，JSX上自定义属性报错的方法
-declare namespace JSX {
-  interface ElementAttributesProperty {
-    props: any; // specify the property name to use
-  }
-}
+// 2020/5/29更新，这种方式好像对所有的JSXElement的自定义属性都解了绑（其实也没有完全弄懂）
+// 既然有了新的，更合理的，更具针对性的方式，就弃用了，仅注释保留作参考
+// declare namespace JSX {
+//   interface ElementAttributesProperty {
+//     props: any; // specify the property name to use
+//   }
+// }
 
 // window.addEventListener('mousedown', function(e: any) {
 //   document.body.classList.add('mouse-navigation');
@@ -40,38 +41,50 @@ declare namespace JSX {
 //   }
 // })(console.error);
 
-class Square extends React.Component {
-  // 此处!感叹号的含义是，使用类型断言手动去除props是undefined或null的可能性。
-  props!: {
-    value: string;
-  };
+interface SquareProps {
+  value: string | number;
+  // 如果是问号代表该成员有可能不存在
+  noNeed?: any;
+}
 
-  // 定义 state.value
+interface SquareState {
+  value: string | number;
+}
+
+// 2020/05/29 重新TypeScript改造，增加props 和 state 的数据类型指定
+class Square extends React.Component<SquareProps, SquareState> {
+  // 此处!感叹号的含义是，使用类型断言手动去除props是undefined或null的可能性。
+  // 简单说就是不为空
+  // props! : {
+  //   value: string
+  // };
+
+  // 此处定义经测试不能删除，否则state.value被认为是readonly，原理不详待查（2020/5/29）
   state = {
-    value: null,
+    value: '',
   };
 
   constructor(props: any) {
     super(props);
     // 注意 data-value后，取值方式的改动
+    // 注意这个state.value的引用，这种形式只允许在构造函数中出现
+    // 其他地方请用 setState
     this.state.value = props.value;
   }
 
-  render() {
-    return (
-      <button
-        className={styles.square}
-        type="button"
-        onClick={() => {
-          this.setState({ value: 'X' });
-        }}
-      >
-        {/* 下面这行代码在刚接触react的时候报错 */}
-        {/* 目前有效的解决办法是在这个类中，显式的定义state的value，见37行 */}
-        {this.state.value}
-      </button>
-    );
-  }
+  render = () => (
+    <button
+      className={styles.square}
+      type="button"
+      onClick={() => {
+        this.setState({ value: 'X' });
+      }}
+    >
+      {/* 下面这行代码在刚接触react的时候报错 */}
+      {/* 目前有效的解决办法是在这个类中，显式的定义state的value，见37行 */}
+      {this.state.value}
+    </button>
+  );
 }
 
 class Board extends React.Component {
@@ -81,23 +94,20 @@ class Board extends React.Component {
   // 如this.renderSquare(1)，
   // 若要看不见错误，需要加上下面这行eslint的 exceptMethods 说明
   /* eslint class-methods-use-this: ["error", { "exceptMethods": ["renderSquare"] }] */
-  renderSquare(i: any) {
-    // 嵌套组件传值的问题目前看来我目前还解决不了，暂存（2020/5/2)
-    // 这边的value报错，看来和传值无关，猜想是自定义属性的问题，教程中提供的value，并不是一个合法的html自定义属性
-    // 从html5开始，有一套很方便的自定义属性的方式  data-xxxx，获取自定义属性则是 dataset.xxxx 方法
-    // return <Square value={i} />;
-    return <Square value={i} />;
-  }
+  renderSquare = (i: string | number) => <Square value={i} />;
 
-  render() {
+  render = () => {
     const status = 'Next player: X';
 
     return (
       <div>
         <div className={styles.status}>{status}</div>
         <div className={styles.boardRow}>
+          {/* 提供一个不同数据类型参数的尝试 */}
           {this.renderSquare('a')}
-          {this.renderSquare(1)}
+          {/* 个人觉得写renderSquare是不是多余了 */}
+          <Square value={1} />
+          {/* 这三种写法实际上是一回事，以下遵循官网 */}
           {this.renderSquare(2)}
         </div>
         <div className={styles.boardRow}>
@@ -112,24 +122,22 @@ class Board extends React.Component {
         </div>
       </div>
     );
-  }
+  };
 }
 
-function Game() {
-  return (
-    <div className="game">
-      <div className="game-board">
-        <Board />
-      </div>
-      {/* 很有意思的东西，不知道是less还是recat，不支持style的className中带有'-' */}
-      {/* 提供一种解决此问题的写法，留档做参考{styles[`progress-${passwordStatus}`]} */}
-      <div className={styles[`game-info`]}>
-        <div>{/* status */}</div>
-        <ol>{/* TODO */}</ol>
-      </div>
+const Game: React.FC = () => (
+  <div className="game">
+    <div className="game-board">
+      <Board />
     </div>
-  );
-}
+    {/* 很有意思的东西，不知道是less还是recat，不支持style的className中带有'-' */}
+    {/* 提供一种解决此问题的写法，留档做参考{styles[`progress-${passwordStatus}`]} */}
+    <div className={styles[`game-info`]}>
+      <div>{/* status */}</div>
+      <ol>{/* TODO */}</ol>
+    </div>
+  </div>
+);
 
 export default (): React.ReactNode => (
   <PageHeaderWrapper>
