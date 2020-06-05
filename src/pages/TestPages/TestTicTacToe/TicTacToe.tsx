@@ -93,12 +93,14 @@ const Square: React.FC<SquareProps> = (props: SquareProps) => (
 
 interface BoardState {
   squares: Array<string | number>;
+  xIsNext: boolean;
 }
 
 // 目前只定义了state，不定义props
 class Board extends React.Component<{}, BoardState> {
   state = {
     squares: Array(9).fill(null),
+    xIsNext: true,
   };
 
   // constructor(props: any) {
@@ -114,9 +116,12 @@ class Board extends React.Component<{}, BoardState> {
     // 所以需要把更新的过程写成函数，下面就是参考代码
     this.setState((prevState) => {
       const squares = prevState.squares.slice();
-      squares[i] = 'X';
+      squares[i] = prevState.xIsNext ? 'X' : 'O';
       // { squares: squares } 此处更新了数据
-      return { squares };
+      return {
+        squares,
+        xIsNext: !prevState.xIsNext,
+      };
     });
   }
 
@@ -131,7 +136,8 @@ class Board extends React.Component<{}, BoardState> {
   );
 
   render = () => {
-    const status = 'Next player: X';
+    // const status = 'Next player: X';
+    const status = `Next player: ${this.state.xIsNext ? 'X' : 'O'}`;
 
     return (
       <div>
