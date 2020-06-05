@@ -73,28 +73,34 @@ class Square extends React.Component<SquareProps, SquareState> {
   }
 
   render = () => (
-    <button
-      className={styles.square}
-      type="button"
-      onClick={() => {
-        this.setState({ value: 'X' });
-      }}
-    >
+    <button className={styles.square} type="button" onClick={() => this.setState({ value: 'X' })}>
       {/* 下面这行代码在刚接触react的时候报错 */}
       {/* 目前有效的解决办法是在这个类中，显式的定义state的value，见37行 */}
       {this.state.value}
     </button>
   );
 }
+interface BoardState {
+  squares: Array<string | number>;
+}
 
-class Board extends React.Component {
+// 目前只定义了state，不定义props
+class Board extends React.Component<{}, BoardState> {
+  state = {
+    squares: Array(9).fill(null),
+  };
+
+  // constructor(props: any) {
+  //   super(props);
+  // }
+
   // Eslint规则: Enforce that class methods utilize this
   // 类中的函数，强制使用类方法this，如果未使用，则会报错
   // 但此处的renderSquare在测试代码中，采用的是函数的值传递的方式来确定渲染内容
   // 如this.renderSquare(1)，
   // 若要看不见错误，需要加上下面这行eslint的 exceptMethods 说明
   /* eslint class-methods-use-this: ["error", { "exceptMethods": ["renderSquare"] }] */
-  renderSquare = (i: string | number) => <Square value={i} />;
+  renderSquare = (i: string | number) => <Square value={this.state.squares[i]} />;
 
   render = () => {
     const status = 'Next player: X';
@@ -104,10 +110,13 @@ class Board extends React.Component {
         <div className={styles.status}>{status}</div>
         <div className={styles.boardRow}>
           {/* 提供一个不同数据类型参数的尝试 */}
-          {this.renderSquare('a')}
+          {this.renderSquare(0)}
           {/* 个人觉得写renderSquare是不是多余了 */}
-          <Square value={1} />
-          {/* 这三种写法实际上是一回事，以下遵循官网 */}
+          {/* 2020/6/5 更新:
+          之前觉得renderSquare多余，写着写着发现并不是，因为这里最终的目的不是让这个value显示在页面上
+          而是希望通过数组来管理这9个格子，value后面跟的不是常量，而是数组的对应项 squares[1] */}
+          {/* <Square value={1} /> */}
+          {this.renderSquare(1)}
           {this.renderSquare(2)}
         </div>
         <div className={styles.boardRow}>
