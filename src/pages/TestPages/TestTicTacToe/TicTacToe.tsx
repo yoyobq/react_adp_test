@@ -43,16 +43,19 @@ import styles from './TicTacToe.less';
 
 interface SquareProps {
   value: string | number;
+  // React.FC并无队onClick的定义，直接作为props引用过来即可
+  onClick: Function;
   // 如果是问号代表该成员有可能不存在
   noNeed?: any;
 }
 
-interface SquareState {
-  value: string | number;
-}
+// interface SquareState {
+//   value: string | number;
+// }
 
 // 2020/05/29 重新TypeScript改造，增加props 和 state 的数据类型指定
-class Square extends React.Component<SquareProps, SquareState> {
+// 2020/06/06 随着state提升去了Border，Square已经是个pure function，Eslit强制改写
+const Square: React.FC<SquareProps> = (props: SquareProps) => (
   // 此处!感叹号的含义是，使用类型断言手动去除props是undefined或null的可能性。
   // 简单说就是不为空
   // props! : {
@@ -60,26 +63,32 @@ class Square extends React.Component<SquareProps, SquareState> {
   // };
 
   // 此处定义经测试不能删除，否则state.value被认为是readonly，原理不详待查（2020/5/29）
-  state = {
-    value: '',
-  };
+  // state = {
+  //   value: '',
+  // };
 
-  constructor(props: any) {
-    super(props);
-    // 注意 data-value后，取值方式的改动
-    // 注意这个state.value的引用，这种形式只允许在构造函数中出现
-    // 其他地方请用 setState
-    this.state.value = props.value;
-  }
+  // constructor(props: any) {
+  //   super(props);
+  //   // 注意 data-value后，取值方式的改动
+  //   // 注意这个state.value的引用，这种形式只允许在构造函数中出现
+  //   // 其他地方请用 setState
+  //   this.state.value = props.value;
+  // }
+  <button
+    className={styles.square}
+    type="button"
+    // 此处不再从states获取数据，而是从Board组件的props传值
+    // 由于修改后没有了state的变化，ADP中也不能作为一个class存在
+    // 需要携程一个 pure function
+    // onClick={() => this.setState({ value: 'X' })}
+    onClick={() => props.onClick()}
+  >
+    {/* 下面这行代码在刚接触react的时候报错 */}
+    {/* 目前有效的解决办法是在这个类中，显式的定义state的value，见37行 */}
+    {props.value}
+  </button>
+);
 
-  render = () => (
-    <button className={styles.square} type="button" onClick={() => this.setState({ value: 'X' })}>
-      {/* 下面这行代码在刚接触react的时候报错 */}
-      {/* 目前有效的解决办法是在这个类中，显式的定义state的value，见37行 */}
-      {this.state.value}
-    </button>
-  );
-}
 interface BoardState {
   squares: Array<string | number>;
 }
@@ -94,13 +103,22 @@ class Board extends React.Component<{}, BoardState> {
   //   super(props);
   // }
 
+  handleClick(i: any) {
+    // eslint-disable-next-line react/no-access-state-in-setstate
+    const squares = this.state.squares.slice();
+    squares[i] = 'X';
+    this.setState({ squares });
+  }
+
   // Eslint规则: Enforce that class methods utilize this
   // 类中的函数，强制使用类方法this，如果未使用，则会报错
   // 但此处的renderSquare在测试代码中，采用的是函数的值传递的方式来确定渲染内容
   // 如this.renderSquare(1)，
   // 若要看不见错误，需要加上下面这行eslint的 exceptMethods 说明
   /* eslint class-methods-use-this: ["error", { "exceptMethods": ["renderSquare"] }] */
-  renderSquare = (i: string | number) => <Square value={this.state.squares[i]} />;
+  renderSquare = (i: string | number) => (
+    <Square value={this.state.squares[i]} onClick={() => this.handleClick(i)} />
+  );
 
   render = () => {
     const status = 'Next player: X';
