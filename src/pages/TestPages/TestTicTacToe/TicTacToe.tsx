@@ -101,7 +101,7 @@ class Board extends React.Component<{}, BoardState> {
 
       // Eslint规定要么不给返回值，要么全部分支都给返回值，所以不能省略state不变的情况
       // 不过这么写的话是不是尝试去更新并未发生变化的state，徒增负担？ 2020/06/06
-      return prevState;
+      return null;
     });
   }
 
