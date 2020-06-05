@@ -13,34 +13,6 @@ import styles from './TicTacToe.less';
 //   }
 // }
 
-// window.addEventListener('mousedown', function(e: any) {
-//   document.body.classList.add('mouse-navigation');
-//   document.body.classList.remove('kbd-navigation');
-// });
-// window.addEventListener('keydown', function(e: any) {
-//   if (e.keyCode === 9) {
-//     document.body.classList.add('kbd-navigation');
-//     document.body.classList.remove('mouse-navigation');
-//   }
-// });
-// window.addEventListener('click', function(e: any) {
-//   if (e.target.tagName === 'A' && e.target.getAttribute('href') === '#') {
-//     e.preventDefault();
-//   }
-// });
-// window.onerror = function(message, source, line, col, error) {
-//   var text = error ? error.stack || error : message + ' (at ' + source + ':' + line + ':' + col + ')';
-//   errors.textContent += text + '\n';
-//   errors.style.display = '';
-// };
-// console.error = (function(old) {
-//   return function error() {
-//     errors.textContent += Array.prototype.slice.call(arguments).join(' ') + '\n';
-//     errors.style.display = '';
-//     old.apply(this, arguments);
-//   }
-// })(console.error);
-
 interface SquareProps {
   value: string | number;
   // React.FC并无队onClick的定义，直接作为props引用过来即可
@@ -116,12 +88,20 @@ class Board extends React.Component<{}, BoardState> {
     // 所以需要把更新的过程写成函数，下面就是参考代码
     this.setState((prevState) => {
       const squares = prevState.squares.slice();
-      squares[i] = prevState.xIsNext ? 'X' : 'O';
-      // { squares: squares } 此处更新了数据
-      return {
-        squares,
-        xIsNext: !prevState.xIsNext,
-      };
+
+      // 胜负未分，且此格子无子，才能修改数据
+      if (!calculateWinner(squares) && !squares[i]) {
+        squares[i] = prevState.xIsNext ? 'X' : 'O';
+        // { squares: squares } 此处更新了数据
+        return {
+          squares,
+          xIsNext: !prevState.xIsNext,
+        };
+      }
+
+      // Eslint规定要么不给返回值，要么全部分支都给返回值，所以不能省略state不变的情况
+      // 不过这么写的话是不是尝试去更新并未发生变化的state，徒增负担？ 2020/06/06
+      return prevState;
     });
   }
 
@@ -136,8 +116,15 @@ class Board extends React.Component<{}, BoardState> {
   );
 
   render = () => {
+    const winner = calculateWinner(this.state.squares);
+    let status;
     // const status = 'Next player: X';
-    const status = `Next player: ${this.state.xIsNext ? 'X' : 'O'}`;
+    // const status = `Next player: ${this.state.xIsNext ? 'X' : 'O'}`;
+    if (winner) {
+      status = `Winner is: ${winner}`;
+    } else {
+      status = `Next player: ${this.state.xIsNext ? 'X' : 'O'}`;
+    }
 
     return (
       <div>
@@ -181,6 +168,29 @@ const Game: React.FC = () => (
     </div>
   </div>
 );
+
+// 官网提供的胜负判定代码，显然在比较是否有符合数组组合的相同棋子
+function calculateWinner(squares: Array<number | string>) {
+  const lines = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
+
+  // 有意思，此处Eslint要求不得写 i++ 这种形式，否则报错
+  for (let i = 0; i < lines.length; i += 1) {
+    const [a, b, c] = lines[i];
+    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+      return squares[a];
+    }
+  }
+  return null;
+}
 
 export default (): React.ReactNode => (
   <PageHeaderWrapper>
