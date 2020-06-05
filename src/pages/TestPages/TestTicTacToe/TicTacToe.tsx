@@ -44,7 +44,8 @@ import styles from './TicTacToe.less';
 interface SquareProps {
   value: string | number;
   // React.FC并无队onClick的定义，直接作为props引用过来即可
-  onClick: Function;
+  // onClick 的 TypeScript定义如下
+  onClick: (e: React.MouseEvent) => void;
   // 如果是问号代表该成员有可能不存在
   noNeed?: any;
 }
@@ -79,9 +80,10 @@ const Square: React.FC<SquareProps> = (props: SquareProps) => (
     type="button"
     // 此处不再从states获取数据，而是从Board组件的props传值
     // 由于修改后没有了state的变化，ADP中也不能作为一个class存在
-    // 需要携程一个 pure function
+    // 需要写成一个 pure function
     // onClick={() => this.setState({ value: 'X' })}
-    onClick={() => props.onClick()}
+    // onClick={() => props.onClick()}
+    onClick={props.onClick}
   >
     {/* 下面这行代码在刚接触react的时候报错 */}
     {/* 目前有效的解决办法是在这个类中，显式的定义state的value，见37行 */}
@@ -104,10 +106,18 @@ class Board extends React.Component<{}, BoardState> {
   // }
 
   handleClick(i: any) {
-    // eslint-disable-next-line react/no-access-state-in-setstate
-    const squares = this.state.squares.slice();
-    squares[i] = 'X';
-    this.setState({ squares });
+    // const squares = this.state.squares.slice();
+    // squares[i] = 'X';
+    // this.setState({ squares });
+
+    // 上面的写法是有问题的，因为无法直接引用this.state，会引起更新问题
+    // 所以需要把更新的过程写成函数，下面就是参考代码
+    this.setState((prevState) => {
+      const squares = prevState.squares.slice();
+      squares[i] = 'X';
+      // { squares: squares } 此处更新了数据
+      return { squares };
+    });
   }
 
   // Eslint规则: Enforce that class methods utilize this
