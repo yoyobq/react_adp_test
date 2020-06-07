@@ -111,6 +111,8 @@ class Board extends React.Component<{}, BoardState> {
   // 如this.renderSquare(1)，
   // 若要看不见错误，需要加上下面这行eslint的 exceptMethods 说明
   /* eslint class-methods-use-this: ["error", { "exceptMethods": ["renderSquare"] }] */
+  // 其实添加了 this.handeClick(i) 这样的代码以后，上一条Eslint的规则取消注释已经不需要了
+  // 仅作历史记录保留
   renderSquare = (i: string | number) => (
     <Square value={this.state.squares[i]} onClick={() => this.handleClick(i)} />
   );
