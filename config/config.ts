@@ -151,6 +151,12 @@ export default defineConfig({
                   icon: 'Bulb',
                   component: './DvaTest/Dva01/index',
                 },
+                {
+                  name: '02 Quick Start',
+                  icon: 'smile',
+                  path: '/dvatest/dva02',
+                  component: './DvaTest/Dva02/',
+                },
               ],
             },
             {
