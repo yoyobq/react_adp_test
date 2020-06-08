@@ -140,6 +140,20 @@ export default defineConfig({
               ],
             },
             {
+              path: '/DvaTest',
+              name: 'DvaTest',
+              icon: 'DeploymentUnit',
+              authority: ['admin'],
+              routes: [
+                {
+                  path: '/DvaTest/Dva01',
+                  name: '01 React Communication',
+                  icon: 'Bulb',
+                  component: './DvaTest/Dva01/index',
+                },
+              ],
+            },
+            {
               path: '/admin',
               name: 'admin',
               icon: 'crown',
