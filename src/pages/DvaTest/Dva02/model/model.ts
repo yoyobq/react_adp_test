@@ -12,11 +12,19 @@ export interface ProductsModelType {
   namespace: string;
   // state是个ProductStateType组成的数组
   state: Array<ProductStateType>;
-  // reducers描述发生了什么事
+  // reducers描述发生了什么事, 用于同步更新state
   reducers: {
     delete: Reducer<Array<ProductStateType>>;
-    // add: Reducer<Array<ProductStateType>>;
+    add: Reducer<Array<ProductStateType>>;
   };
+
+  // effects用于处理异步逻辑
+  // effects: {
+  // }
+
+  // subscriptions 用于获取数据源
+  // subscriptions: {
+  // };
 }
 
 const Model: ProductsModelType = {
@@ -34,9 +42,14 @@ const Model: ProductsModelType = {
       // 返回所有和id不符的数据
       return state!.filter((item) => item.id !== id);
     },
-    // add(state, { payload }) {
-    //   return state?.push({name: 'addtest', id: 'addtest'});
-    // }
+    add(state) {
+      // 此处有坑，浪费了不少时间， .push返回值是新数组长度，而不是新数组
+      state!.push({ name: 'addtest', id: 'addtest' });
+      const newState = [...state!];
+      // 此处也有大坑，state参数是引用类型，如果直接返回state，dva会认为没有修改state，所有不会刷新（同redux）
+      // return state;
+      return newState;
+    },
   },
 };
 

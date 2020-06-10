@@ -14,15 +14,23 @@ const Products: React.FC<ProductsProps> = ({ dispatch, products }) => {
   //  const Products: React.FC<ProductsProps> = (props) => {
   //  const { dispatch, products } = props;
 
-  function handleDelete(id: string) {
+  const handleDelete = (id: string) => {
     dispatch({
       type: 'products/delete',
       payload: id,
     });
-  }
+  };
+
+  const handleAdd = () => {
+    dispatch({
+      type: 'products/add',
+    });
+  };
+
   return (
     <div>
       <h2>List of Products</h2>
+      <Button onClick={handleAdd}>Add</Button>
       <ProductList onDelete={handleDelete} products={products} />
     </div>
   );
@@ -46,6 +54,7 @@ const ProductList: React.FC<ProductsListProps> = ({ onDelete, products }) => {
       // 在列中嵌套其他组件的方法
       // text 当前的行，record 当前行的数据，index 行索引
       // render: (text, record, index) => {
+      // 此处下划线表示，此变量根本用不到，不想起名字了，同时还省略了index
       render: (_, record) => {
         return (
           <Popconfirm title={`Delete?${record.id}`} onConfirm={() => onDelete(record.id)}>
@@ -58,6 +67,7 @@ const ProductList: React.FC<ProductsListProps> = ({ onDelete, products }) => {
   return <Table dataSource={products} columns={columns} />;
 };
 
+// connect负责绑定State到view
 export default connect(({ products }: ProductsProps) => ({
   products,
 }))(Products);
