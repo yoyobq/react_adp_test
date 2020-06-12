@@ -3,6 +3,7 @@ import { ColumnsType } from 'antd/lib/table';
 import React from 'react';
 import { connect, Dispatch } from 'umi';
 import { ProductStateType } from './model/model';
+// 请注意model已被自动加载，且namespace是 'products'
 
 interface ProductsProps {
   dispatch: Dispatch;
