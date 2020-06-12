@@ -1,8 +1,7 @@
-import { Form, Button, Col, Input, Popover, Progress, Row, Select, message } from 'antd';
-import React, { FC, useState, useEffect } from 'react';
-import { Link, connect, history, FormattedMessage, formatMessage, Dispatch } from 'umi';
-
-import { StateType } from './model';
+import { Button, Col, Form, Input, message, Popover, Progress, Row, Select } from 'antd';
+import React, { FC, useEffect, useState } from 'react';
+import { connect, Dispatch, formatMessage, FormattedMessage, history, Link } from 'umi';
+import { UserStateType } from './model';
 import styles from './style.less';
 
 const FormItem = Form.Item;
@@ -39,7 +38,7 @@ const passwordProgressMap: {
 
 interface UserRegisterProps {
   dispatch: Dispatch;
-  userRegister: StateType;
+  userRegister: UserStateType;
   submitting: boolean;
 }
 
@@ -52,11 +51,7 @@ export interface UserRegisterParams {
   prefix: string;
 }
 
-const UserRegister: FC<UserRegisterProps> = ({
-  submitting,
-  dispatch,
-  userRegister,
-}) => {
+const UserRegister: FC<UserRegisterProps> = ({ submitting, dispatch, userRegister }) => {
   const [count, setcount]: [number, any] = useState(0);
   const [visible, setvisible]: [boolean, any] = useState(false);
   const [prefix, setprefix]: [string, any] = useState('86');
@@ -180,7 +175,10 @@ const UserRegister: FC<UserRegisterProps> = ({
             },
           ]}
         >
-          <Input size="large" placeholder={formatMessage({ id: 'userregister.email.placeholder' })} />
+          <Input
+            size="large"
+            placeholder={formatMessage({ id: 'userregister.email.placeholder' })}
+          />
         </FormItem>
         <Popover
           getPopupContainer={(node) => {
@@ -320,7 +318,7 @@ export default connect(
     userRegister,
     loading,
   }: {
-    userRegister: StateType;
+    userRegister: UserStateType;
     loading: {
       effects: {
         [key: string]: boolean;

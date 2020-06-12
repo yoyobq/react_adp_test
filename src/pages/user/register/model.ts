@@ -1,20 +1,19 @@
 import { Effect, Reducer } from 'umi';
-
 import { fakeRegister } from './service';
 
-export interface StateType {
+export interface UserStateType {
   status?: 'ok' | 'error';
   currentAuthority?: 'user' | 'guest' | 'admin';
 }
 
 export interface ModelType {
   namespace: string;
-  state: StateType;
+  state: UserStateType;
   effects: {
     submit: Effect;
   };
   reducers: {
-    registerHandle: Reducer<StateType>;
+    registerHandle: Reducer<UserStateType>;
   };
 }
 
