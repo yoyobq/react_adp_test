@@ -152,14 +152,14 @@ export default defineConfig({
                   component: './DvaTest/Dva01/index',
                 },
                 {
-                  name: '01 A Simple Dva e.g.',
-                  icon: 'smile',
+                  name: '02 Simple Dva e.g.',
+                  icon: 'File',
                   path: '/dvatest/dva02',
                   component: './DvaTest/Dva02/',
                 },
                 {
-                  name: '03 Quick Start',
-                  icon: 'smile',
+                  name: '03 Local Dva e.g.',
+                  icon: 'FileAdd',
                   path: '/dvatest/dva03',
                   component: './DvaTest/Dva03/',
                 },
