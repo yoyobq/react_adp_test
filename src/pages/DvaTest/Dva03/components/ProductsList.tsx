@@ -3,7 +3,7 @@ import { ColumnsType } from 'antd/lib/table';
 import React from 'react';
 import { ProductFullStateType, ProductsListProps } from '../data';
 
-const ProductList: React.FC<ProductsListProps> = ({ onDelete, products }) => {
+const ProductList: React.FC<ProductsListProps> = ({ onDelete, productsFull }) => {
   // 请注意此处的ColumnsType，这个是antd-table 对columns的预定义
   const columns: ColumnsType<ProductFullStateType> = [
     {
@@ -25,8 +25,7 @@ const ProductList: React.FC<ProductsListProps> = ({ onDelete, products }) => {
       },
     },
   ];
-  return <Table dataSource={products} columns={columns} />;
+  return <Table dataSource={productsFull} columns={columns} />;
 };
 
-// connect负责绑定State到view
 export default ProductList;

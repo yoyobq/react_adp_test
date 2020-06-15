@@ -7,8 +7,14 @@ const Model: ProductsFullModelType = {
   state: [
     { name: 'dva4', id: 'dva1' },
     { name: 'antd', id: 'antd2' },
+  ],
+
+  dataSource: [
+    { name: 'dva4', id: 'dva1' },
+    { name: 'antd', id: 'antd2' },
     { name: 'react', id: 'react3' },
   ],
+
   reducers: {
     delete(state, { payload: id }) {
       // state可能是undfiened，所以要!
@@ -22,6 +28,12 @@ const Model: ProductsFullModelType = {
       // 此处也有大坑，state参数是引用类型，如果直接返回state，dva会认为没有修改state，所有不会刷新（同redux）
       // return state;
       return newState;
+    },
+    search(state, { payload: value }) {
+      // const id = 'dva1';
+      // const newS =  state!.filter((item) => item.id !== id);
+      return state!.filter((item) => item.name === value);
+      // return newS;
     },
   },
 };

@@ -1,8 +1,9 @@
 import { Reducer } from 'umi';
+
 // ProductsListProps的定义
 export interface ProductsListProps {
   onDelete: Function;
-  products: Array<ProductFullStateType>;
+  productsFull: Array<ProductFullStateType>;
 }
 
 // 定义ProductsState的类型
@@ -11,9 +12,9 @@ export interface ProductFullStateType {
   name: string;
 }
 
-export interface ProductsProps {
+export interface ProductsFullProps {
   dispatch: Dispatch;
-  products: Array<ProductFullStateType>;
+  productsFull: Array<ProductFullStateType>;
 }
 
 // 定义此Model的类型
@@ -22,10 +23,12 @@ export interface ProductsFullModelType {
   namespace: string;
   // state是个ProductFullStateType组成的数组
   state: Array<ProductFullStateType>;
+  dataSource: Array<ProductFullStateType>;
   // reducers描述发生了什么事, 用于同步更新state
   reducers: {
     delete: Reducer<Array<ProductFullStateType>>;
     add: Reducer<Array<ProductFullStateType>>;
+    search: Reducer<Array<ProductFullStateType>>;
   };
 
   // effects用于处理异步逻辑
@@ -35,4 +38,17 @@ export interface ProductsFullModelType {
   // subscriptions 用于获取数据源
   // subscriptions: {
   // };
+}
+
+export interface SearchBarProps {
+  // onSearch 是 antd <Search> 定义的
+  onSearch: (
+    value: string,
+    event?:
+      | React.MouseEvent<HTMLElement, MouseEvent>
+      | React.KeyboardEvent<HTMLInputElement>
+      | undefined,
+  ) => void;
+  // onClick: (event: React.MouseEvent<HTMLInputElement>) => void;
+  // products: Array<ProductFullStateType>;
 }
