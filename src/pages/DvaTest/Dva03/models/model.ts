@@ -1,19 +1,10 @@
-import { ProductsFullModelType } from '../data';
+import { ProductsFullModelType, ProductFullStateType } from '../data';
 
 const Model: ProductsFullModelType = {
   namespace: 'productsFull',
   // 此处的state数据是直接赋值了，
   // 以后应该是通过service从后台获取
-  state: [
-    { name: 'dva4', id: 'dva1' },
-    { name: 'antd', id: 'antd2' },
-  ],
-
-  dataSource: [
-    { name: 'dva4', id: 'dva1' },
-    { name: 'antd', id: 'antd2' },
-    { name: 'react', id: 'react3' },
-  ],
+  state: [],
 
   reducers: {
     delete(state, { payload: id }) {
@@ -34,6 +25,24 @@ const Model: ProductsFullModelType = {
       // const newS =  state!.filter((item) => item.id !== id);
       return state!.filter((item) => item.name === value);
       // return newS;
+    },
+    query() {
+      // 这里的定义，包括类型定义其实是多此一举的，仅用于假设从外部获取了以下信息
+      const dataSource: Array<ProductFullStateType> = [
+        { name: 'dva4', id: 'dva1' },
+        { name: 'antd', id: 'antd2' },
+        { name: 'react', id: 'react3' },
+        { name: 'hahaha', id: 'pro4' },
+      ];
+
+      return dataSource;
+    },
+  },
+  subscriptions: {
+    // setup({ history, dispatch }): void {
+    setup({ dispatch }): void {
+      // console.log(history);
+      dispatch({ type: 'query' });
     },
   },
 };

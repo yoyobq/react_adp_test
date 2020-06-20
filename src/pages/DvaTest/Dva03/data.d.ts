@@ -1,4 +1,4 @@
-import { Reducer } from 'umi';
+import { Subscription, Reducer } from 'umi';
 
 // ProductsListProps的定义
 export interface ProductsListProps {
@@ -23,12 +23,13 @@ export interface ProductsFullModelType {
   namespace: string;
   // state是个ProductFullStateType组成的数组
   state: Array<ProductFullStateType>;
-  dataSource: Array<ProductFullStateType>;
+  // dataSource: Array<ProductFullStateType>;
   // reducers描述发生了什么事, 用于同步更新state
   reducers: {
     delete: Reducer<Array<ProductFullStateType>>;
     add: Reducer<Array<ProductFullStateType>>;
     search: Reducer<Array<ProductFullStateType>>;
+    query: Reducer<Array<ProductFullStateType>>;
   };
 
   // effects用于处理异步逻辑
@@ -36,8 +37,9 @@ export interface ProductsFullModelType {
   // }
 
   // subscriptions 用于获取数据源
-  // subscriptions: {
-  // };
+  subscriptions: {
+    setup: Subscription;
+  };
 }
 
 export interface SearchBarProps {
