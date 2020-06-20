@@ -39,9 +39,13 @@ const Model: ProductsFullModelType = {
     },
   },
   subscriptions: {
+    // 这个setup并不是内置的方法，只是变成人员自己取的一个标识而已。当然也可以去其他的名字
+    // 两个参数 history其实是路由 history.listen 就可以监听路由，此处暂不涉及
     // setup({ history, dispatch }): void {
+    // 目前的这个例子，就是不管时机，只要是访问当这张页面了，就立刻执行setup
+    // 而setup干的活儿，就是去调用了 dispatch 里的query方法
     setup({ dispatch }): void {
-      // console.log(history);
+      // 由于是在内部调用,就不需要写命名空间了
       dispatch({ type: 'query' });
     },
   },
