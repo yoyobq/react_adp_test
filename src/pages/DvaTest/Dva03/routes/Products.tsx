@@ -11,10 +11,19 @@ const Products: React.FC<ProductsFullProps> = ({ dispatch, productsFull }) => {
   //  const Products: React.FC<ProductsProps> = (props) => {
   //  const { dispatch, products } = props;
 
+  // 删除的原始版本
+  // const handleDelete = (id: string) => {
+  //   dispatch({
+  //     // 此处 productsFull 是命名空间
+  //     type: 'productsFull/delete',
+  //     payload: id,
+  //   });
+  // };
+
+  // 新的一秒后删除版本
   const handleDelete = (id: string) => {
     dispatch({
-      // 此处 productsFull 是命名空间
-      type: 'productsFull/delete',
+      type: 'productsFull/delay1SecondDelete',
       payload: id,
     });
   };
@@ -38,6 +47,7 @@ const Products: React.FC<ProductsFullProps> = ({ dispatch, productsFull }) => {
       <h2>List of Products</h2>
       <Button onClick={handleAdd}>Add</Button>
       <SearchBar onSearch={handleSearch} />
+      {/* <ProductsList onDelete={handleDelete} productsFull={productsFull} /> */}
       <ProductsList onDelete={handleDelete} productsFull={productsFull} />
     </div>
   );

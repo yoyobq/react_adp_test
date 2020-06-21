@@ -38,6 +38,28 @@ const Model: ProductsFullModelType = {
       return dataSource;
     },
   },
+  effects: {
+    *delay1SecondDelete({ payload: id }, { put, call }) {
+      // 注意这个delay，其实就是用的setTimeout，但不能直接yield setTimeout，
+      // 因为 setTimeout是一个普通函数，并不支持异步操作，
+      // 所以先要把 setTimeout 封装到 Promise 对象内部才可能 yield
+      const delay = (ms: number) =>
+        new Promise((resolve) => {
+          setTimeout(resolve, ms);
+        });
+
+      // call 用于执行 “异步函数“，啰嗦一句，防止被坑，
+      // 也就是说不支持普通函数的调用，普通函数一定要如本例一样事先封装
+      yield call(delay, 1000);
+
+      // put 执行一个dispatch
+      yield put({
+        type: 'delete',
+        payload: id,
+      });
+    },
+  },
+
   subscriptions: {
     // 这个setup并不是内置的方法，只是变成人员自己取的一个标识而已。当然也可以去其他的名字
     // 两个参数 history其实是路由 history.listen 就可以监听路由，此处暂不涉及
