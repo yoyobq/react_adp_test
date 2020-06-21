@@ -37,9 +37,15 @@ const Products: React.FC<ProductsFullProps> = ({ dispatch, productsFull }) => {
   const handleSearch = (value: string) => {
     // console.log(value);
     dispatch({
-      type: 'productsFull/search',
-      payload: value,
+      type: 'productsFull/query',
     });
+
+    if (value !== '') {
+      dispatch({
+        type: 'productsFull/search',
+        payload: value,
+      });
+    }
   };
 
   return (

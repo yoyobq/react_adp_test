@@ -12,7 +12,7 @@ const Model: ProductsFullModelType = {
       // 返回所有和id不符的数据
       return state!.filter((item) => item.id !== id);
     },
-    add(state) {
+    add: (state) => {
       // 此处有坑，浪费了不少时间， .push返回值是新数组长度，而不是新数组
       state!.push({ name: 'addtest', id: 'addtest' });
       const newState = [...state!];
@@ -20,7 +20,7 @@ const Model: ProductsFullModelType = {
       // return state;
       return newState;
     },
-    search(state, { payload: value }) {
+    search: (state, { payload: value }) => {
       // const id = 'dva1';
       // const newS =  state!.filter((item) => item.id !== id);
       return state!.filter((item) => item.name === value);
@@ -52,7 +52,7 @@ const Model: ProductsFullModelType = {
       // 也就是说不支持普通函数的调用，普通函数一定要如本例一样事先封装
       yield call(delay, 1000);
 
-      // put 执行一个dispatch
+      // put 执行一个action
       yield put({
         type: 'delete',
         payload: id,
@@ -60,15 +60,18 @@ const Model: ProductsFullModelType = {
     },
   },
 
+  // 订阅，可用来响应各种情况
   subscriptions: {
     // 这个setup并不是内置的方法，只是变成人员自己取的一个标识而已。当然也可以去其他的名字
     // 两个参数 history其实是路由 history.listen 就可以监听路由，此处暂不涉及
     // setup({ history, dispatch }): void {
     // 目前的这个例子，就是不管时机，只要是访问当这张页面了，就立刻执行setup
-    // 而setup干的活儿，就是去调用了 dispatch 里的query方法
+    // 而setup干的活儿，就是去调用了 reducer 里的query方法
     setup({ dispatch }): void {
       // 由于是在内部调用,就不需要写命名空间了
-      dispatch({ type: 'query' });
+      dispatch({
+        type: 'query',
+      });
     },
   },
 };

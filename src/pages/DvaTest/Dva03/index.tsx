@@ -7,6 +7,5 @@ import Products from './routes/Products';
 export default (): React.ReactNode => (
   <PageHeaderWrapper className={styles.main}>
     <Products />
-    {/* <Input onChange={ value => console.log(value.target.value) } /> */}
   </PageHeaderWrapper>
 );
