@@ -3,15 +3,17 @@ import React from 'react';
 import { RadioProps } from 'antd/lib/radio';
 
 interface OptionProps extends RadioProps {
-  optionName: string;
+  sign: string;
   optionContents: string;
 }
 
-const Option: React.FC<OptionProps> = ({ value, optionName, optionContents }) => {
+const Option: React.FC<OptionProps> = ({ value, sign, optionContents }) => {
   return (
+    // <div>
     <Radio value={value}>
-      ‘${optionName}${optionContents}‘
+      {sign} {optionContents}‘
     </Radio>
+    // </div>
   );
 };
 

@@ -1,32 +1,29 @@
 // import { Subscription, Reducer, Effect } from 'umi';
+import { Subscription, Reducer } from 'umi';
 
 // 定义ProductsState的类型
 export interface SingleSelectionState {
   quest: string;
-  opt1?: string;
-  opt2?: string;
-  opt3?: string;
-  opt4?: string;
-  opt5?: string;
+  options: Array<string>;
   answer: string;
 }
 
 export interface SingleSelectionProps {
   dispatch?: Dispatch;
-  question?: string;
+  singleSelection: SingleSelectionState;
 }
 
 // 定义此Model的类型
 export interface SingleSelectionModel {
   namespace: string;
-  state: SingleSelectionState;
+  state?: SingleSelectionState | {};
 
-  // reducers: {
-  //   delete: Reducer<Array<SingleSelectionStateType>>;
-  //   add: Reducer<Array<SingleSelectionStateType>>;
-  //   search: Reducer<Array<SingleSelectionStateType>>;
-  //   query: Reducer<Array<SingleSelectionStateType>>;
-  // };
+  reducers: {
+    //  delete: Reducer<Array<SingleSelectionStateType>>;
+    //  add: Reducer<Array<SingleSelectionStateType>>;
+    //  search: Reducer<Array<SingleSelectionStateType>>;
+    getTestData: Reducer<SingleSelectionState>;
+  };
 
   // // effects用于处理异步逻辑
   // effects: {
@@ -34,8 +31,8 @@ export interface SingleSelectionModel {
   //   delay1SecondDelete: Effect;
   // };
 
-  // // subscriptions 用于获取数据源
-  // subscriptions: {
-  //   setup: Subscription;
-  // };
+  // subscriptions 用于获取数据源
+  subscriptions: {
+    init: Subscription;
+  };
 }
