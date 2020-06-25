@@ -126,7 +126,7 @@ export default defineConfig({
                   component: './TestPages/Test09LiftingStateUp/LiftState',
                 },
                 {
-                  name: '10Composition',
+                  name: '10 Composition',
                   icon: 'smile',
                   path: '/test/test10',
                   component: './TestPages/Test10Composition/Composition',
@@ -162,6 +162,12 @@ export default defineConfig({
                   icon: 'FileAdd',
                   path: '/dvatest/dva03',
                   component: './DvaTest/Dva03/',
+                },
+                {
+                  name: '04 Single Selection',
+                  icon: 'CheckCircle',
+                  path: '/dvatest/dva04',
+                  component: './DvaTest/Dva04/',
                 },
               ],
             },
