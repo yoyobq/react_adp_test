@@ -5,11 +5,14 @@ import { Subscription, Reducer } from 'umi';
 export interface SingleSelectionState {
   quest: string;
   options: Array<string>;
-  answer: string;
+  realAnswer: string;
+  currentAnswer?: string;
+  isCorrect?: boolean;
 }
 
 export interface SingleSelectionProps {
   dispatch?: Dispatch;
+  onChange?: Function;
   singleSelection: SingleSelectionState;
 }
 
@@ -21,7 +24,7 @@ export interface SingleSelectionModel {
   reducers: {
     //  delete: Reducer<Array<SingleSelectionStateType>>;
     //  add: Reducer<Array<SingleSelectionStateType>>;
-    //  search: Reducer<Array<SingleSelectionStateType>>;
+    setCurrentAnswer: Reducer<SingleSelectionStateType>;
     getTestData: Reducer<SingleSelectionState>;
   };
 

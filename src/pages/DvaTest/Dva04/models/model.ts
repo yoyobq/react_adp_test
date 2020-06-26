@@ -1,17 +1,31 @@
-import { SingleSelectionModel } from '../data';
+import { SingleSelectionModel, SingleSelectionState } from '../data';
 
 const Model: SingleSelectionModel = {
   namespace: 'singleSelection',
   // 此处的state数据是直接赋值了，
   // 以后应该是通过service从后台获取
-  state: {},
+  state: {
+    quest: '',
+    options: [],
+    realAnswer: '',
+    currentAnswer: '',
+    isCorrect: false,
+  },
 
   reducers: {
-    //   delete(state, { payload: id }) {
-    //     // state可能是undfiened，所以要!
-    //     // 返回所有和id不符的数据
-    //     return state!.filter((item) => item.id !== id);
-    //   },
+    setCurrentAnswer(state: SingleSelectionState, { payload: value }) {
+      const newState: SingleSelectionState = { ...state! };
+      newState.currentAnswer = value;
+      if (value === newState.realAnswer) {
+        newState.isCorrect = true;
+      } else {
+        newState.isCorrect = false;
+      }
+      return newState;
+      // const newState = [...state!];
+      // newState!.currentAnswer = value;
+      // return newState
+    },
     //   add: (state) => {
     //     // 此处有坑，浪费了不少时间， .push返回值是新数组长度，而不是新数组
     //     state!.push({ name: 'addtest', id: 'addtest' });
@@ -31,7 +45,7 @@ const Model: SingleSelectionModel = {
       // 需要特别注意的是，这里模拟的数据和数据库里存的数据有差别
       // 同样假设是后台处理了数据，格式化成了规定形式，然后发给前台
       const dataSource = {
-        quest: '下面关于微处理器的叙述中，不正确的是_______。',
+        quest: '下面关于微处理器的叙述中，不正确的是（）。',
         options: [
           '微处理器通常以单片集成电路制成',
           '它具有运算和控制功能，但不具备数据存储功能',
@@ -39,9 +53,14 @@ const Model: SingleSelectionModel = {
           'Pentium4是目前PC机中使用最广泛的一种微处理器',
         ],
         // 请无视此答案是否合理
-        answer: 'A',
+        realAnswer: 'A',
       };
-      return dataSource;
+
+      // 模拟将后台数据根据要求二次封装（添加了一个currentAnswer属性）
+      const initState: SingleSelectionState = dataSource;
+      initState.currentAnswer = '';
+      initState.isCorrect = false;
+      return initState;
     },
   },
   // effects: {
@@ -66,10 +85,10 @@ const Model: SingleSelectionModel = {
   //   },
   // },
 
-  // 订阅，可用来响应各种情况
+  // 订阅
   subscriptions: {
+    // 初始化题目数据数据
     init({ dispatch }): void {
-      // 由于是在内部调用,就不需要写命名空间了
       dispatch({
         type: 'getTestData',
       });
