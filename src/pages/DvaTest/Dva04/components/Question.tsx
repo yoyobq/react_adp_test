@@ -15,7 +15,7 @@ const Question: React.FC<quProps> = ({ quContent, currentAnswer }) => {
   const reg = /（/g;
   const finalContent = quContent.replace(reg, `（${formatedAnswer}`);
 
-  return <h3 className={styles.quContent}>{finalContent}</h3>;
+  return <div className={styles[`qu-content`]}>{finalContent}</div>;
 };
 
 export default Question;

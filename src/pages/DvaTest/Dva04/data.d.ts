@@ -1,12 +1,15 @@
 // import { Subscription, Reducer, Effect } from 'umi';
 import { Subscription, Reducer } from 'umi';
 
-// 定义ProductsState的类型
 export interface SingleSelectionState {
+  // 题目描述
   quest: string;
   options: Array<string>;
+  // 数据库中保存的正确答案
   realAnswer: string;
+  // 用户目前选择的答案
   currentAnswer?: string;
+  // 是否做对了
   isCorrect?: boolean;
 }
 

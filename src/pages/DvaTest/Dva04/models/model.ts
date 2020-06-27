@@ -9,7 +9,7 @@ const Model: SingleSelectionModel = {
     options: [],
     realAnswer: '',
     currentAnswer: '',
-    isCorrect: false,
+    isCorrect: undefined,
   },
 
   reducers: {
@@ -59,7 +59,7 @@ const Model: SingleSelectionModel = {
       // 模拟将后台数据根据要求二次封装（添加了一个currentAnswer属性）
       const initState: SingleSelectionState = dataSource;
       initState.currentAnswer = '';
-      initState.isCorrect = false;
+      // initState.isCorrect = false;
       return initState;
     },
   },

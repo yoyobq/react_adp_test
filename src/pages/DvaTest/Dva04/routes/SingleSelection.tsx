@@ -3,6 +3,7 @@ import { connect } from 'umi';
 import OptionList from '../components/OptionList';
 import Question from '../components/Question';
 import { SingleSelectionProps } from '../data';
+import ResultBoard from '../components/ResultBoard';
 
 // routes 名字与文件名一致
 const SingleSelection: React.FC<SingleSelectionProps> = ({ dispatch, singleSelection }) => {
@@ -16,11 +17,14 @@ const SingleSelection: React.FC<SingleSelectionProps> = ({ dispatch, singleSelec
   return (
     <>
       <Question quContent={singleSelection.quest} currentAnswer={singleSelection.currentAnswer} />
-      <OptionList
-        optList={singleSelection.options}
-        realAnswer={singleSelection.realAnswer}
-        onChange={onAnswerChange}
-      />
+      <ResultBoard isCorrect={singleSelection.isCorrect} />
+      <div>
+        <OptionList
+          optList={singleSelection.options}
+          currentAnswer={singleSelection.currentAnswer}
+          onChange={onAnswerChange}
+        />
+      </div>
     </>
   );
 };
