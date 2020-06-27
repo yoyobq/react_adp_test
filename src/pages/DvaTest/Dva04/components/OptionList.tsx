@@ -1,6 +1,6 @@
 import { Radio } from 'antd';
-import React from 'react';
 import { RadioProps } from 'antd/lib/radio';
+import React from 'react';
 import styles from '../index.less';
 
 interface OptionProps extends RadioProps {
@@ -13,6 +13,7 @@ interface OptionListProps {
   // realAnswer: string;
   currentAnswer?: string;
   onChange: Function;
+  orderedTag: Array<string>;
 }
 
 // 选择题 A,B,C,D... 标记
@@ -28,13 +29,21 @@ const Option: React.FC<OptionProps> = ({ tag, value, optionContents }) => {
 };
 
 // 利用React List的知识，将option数组重新组合，变成页面上的ABCD选项列表
-const OptionList: React.FC<OptionListProps> = ({ onChange, optList, currentAnswer }) => {
+const OptionList: React.FC<OptionListProps> = ({
+  onChange,
+  optList,
+  currentAnswer,
+  orderedTag,
+}) => {
+  // 不打乱选项顺序情况下
   const listItems = optList.map((item, index) => (
     <Option
-      key={tagGroup[index]}
+      // A 的 ascii 码是65 转换，
+      // 若 orderedTag 传来的顺序第一位是2，则转化的数字是67，即为C
+      key={orderedTag[index]}
       tag={tagGroup[index]}
       optionContents={item}
-      value={tagGroup[index]}
+      value={orderedTag[index]}
     />
   ));
 

@@ -1,5 +1,5 @@
 // import { Subscription, Reducer, Effect } from 'umi';
-import { Subscription, Reducer } from 'umi';
+import { Reducer, Subscription } from 'umi';
 
 export interface SingleSelectionState {
   // 题目描述
@@ -11,6 +11,7 @@ export interface SingleSelectionState {
   currentAnswer?: string;
   // 是否做对了
   isCorrect?: boolean;
+  orderedTag?: Array<string>;
 }
 
 export interface SingleSelectionProps {
