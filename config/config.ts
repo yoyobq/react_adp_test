@@ -169,6 +169,12 @@ export default defineConfig({
                   path: '/dvatest/dva04',
                   component: './DvaTest/Dva04/',
                 },
+                {
+                  name: '05 Remote Communication',
+                  icon: 'Sync',
+                  path: '/dvatest/dva05',
+                  component: './DvaTest/Dva05/',
+                },
               ],
             },
             {
