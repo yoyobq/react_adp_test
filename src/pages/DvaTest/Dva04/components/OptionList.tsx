@@ -16,9 +16,6 @@ interface OptionListProps {
   orderedTag: Array<string>;
 }
 
-// 选择题 A,B,C,D... 标记
-const tagGroup = ['A', 'B', 'C', 'D'];
-
 // 选项组里的一条
 const Option: React.FC<OptionProps> = ({ tag, value, optionContents }) => {
   return (
@@ -38,10 +35,9 @@ const OptionList: React.FC<OptionListProps> = ({
   // 不打乱选项顺序情况下
   const listItems = optList.map((item, index) => (
     <Option
-      // A 的 ascii 码是65 转换，
-      // 若 orderedTag 传来的顺序第一位是2，则转化的数字是67，即为C
       key={orderedTag[index]}
-      tag={tagGroup[index]}
+      // A 的 ascii 码是65 转换，
+      tag={String.fromCharCode(65 + index)}
       optionContents={item}
       value={orderedTag[index]}
     />
