@@ -1,5 +1,4 @@
-// import { Subscription, Reducer, Effect } from 'umi';
-import { Reducer, Subscription } from 'umi';
+import { Effect, Reducer, Subscription } from 'umi';
 
 export interface SingleSelectionState {
   // 题目描述
@@ -26,17 +25,15 @@ export interface SingleSelectionModel {
   state?: SingleSelectionState | {};
 
   reducers: {
-    //  delete: Reducer<Array<SingleSelectionStateType>>;
-    //  add: Reducer<Array<SingleSelectionStateType>>;
     setCurrentAnswer: Reducer<SingleSelectionStateType>;
-    getTestData: Reducer<SingleSelectionState>;
+    // getTestData: Reducer<SingleSelectionState>;
+    setData: Reducer<SingleSelectionState>;
   };
 
-  // // effects用于处理异步逻辑
-  // effects: {
-  //   // fetchData: Effect;
-  //   delay1SecondDelete: Effect;
-  // };
+  // effects用于处理异步逻辑
+  effects: {
+    fetchData: Effect;
+  };
 
   // subscriptions 用于获取数据源
   subscriptions: {

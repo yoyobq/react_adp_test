@@ -1,4 +1,5 @@
 import { SingleSelectionModel, SingleSelectionState } from '../data';
+import { getFakeData } from '../services/singleSelection';
 
 const Model: SingleSelectionModel = {
   namespace: 'singleSelection2',
@@ -23,78 +24,54 @@ const Model: SingleSelectionModel = {
         newState.isCorrect = false;
       }
       return newState;
-      // const newState = [...state!];
-      // newState!.currentAnswer = value;
-      // return newState
     },
-    //   add: (state) => {
-    //     // 此处有坑，浪费了不少时间， .push返回值是新数组长度，而不是新数组
-    //     state!.push({ name: 'addtest', id: 'addtest' });
-    //     const newState = [...state!];
-    //     // 此处也有大坑，state参数是引用类型，如果直接返回state，dva会认为没有修改state，所有不会刷新（同redux）
-    //     // return state;
-    //     return newState;
-    //   },
-    //   search: (state, { payload: value }) => {
-    //     // const id = 'dva1';
-    //     // const newS =  state!.filter((item) => item.id !== id);
-    //     return state!.filter((item) => item.name === value);
-    //     // return newS;
-    //   },
-    getTestData() {
-      // 假设从外部获取了以下信息，
-      // 需要特别注意的是，这里模拟的数据和数据库里存的数据有差别
-      // 同样假设是后台处理了数据，格式化成了规定形式，然后发给前台
-      const dataSource = {
-        quest: '下面关于微处理器的叙述中，不正确的是（）。',
-        // 后台应该传来的是已经按 orderedTag 顺序打乱的数组
-        options: [
-          'Intel/AMD公司是国际上研制、生产微处理器最有名的公司',
-          '它具有运算和控制功能，但不具备数据存储功能',
-          'Pentium4是目前PC机中使用最广泛的一种微处理器',
-          '微处理器通常以单片集成电路制成',
-        ],
-        // 请无视此答案是否合理
-        realAnswer: 'A',
-        // 打乱后的A,B,C,D顺序
-        orderedTag: ['C', 'B', 'D', 'A'],
-      };
 
-      // 模拟将后台数据根据要求二次封装（添加了一个currentAnswer属性）
-      const initState: SingleSelectionState = dataSource;
-      initState.currentAnswer = '';
-      // initState.isCorrect = false;
-      return initState;
+    // getTestData() {
+    //   // 假设从外部获取了以下信息，
+    //   // 需要特别注意的是，这里模拟的数据和数据库里存的数据有差别
+    //   // 同样假设是后台处理了数据，格式化成了规定形式，然后发给前台
+    //   const dataSource = {
+    //     quest: '若有命令 useradd -u 510 -g 500 -d /home/user1 -s /bin/bash -p 123456 -f -1 user1 则下列描述不正确的是（）',
+    //     // 后台应该传来的是已经按 orderedTag 顺序打乱的数组
+    //     options: [
+    //       '用户的密码永不过期',
+    //       '用户的家目录为 /home/user1',
+    //       '用户下次登录无须修改口令',
+    //       '新建了一个名为user1的用户',
+    //     ],
+    //     // 请无视此答案是否合理
+    //     realAnswer: 'D',
+    //     // 打乱后的A,B,C,D顺序
+    //     orderedTag: ['C', 'B', 'D', 'A'],
+    //   };
+
+    //   return dataSource;
+    // },
+
+    setData(_, { payload: value }) {
+      return value;
     },
   },
-  // effects: {
-  //   *delay1SecondDelete({ payload: id }, { put, call }) {
-  //     // 注意这个delay，其实就是用的setTimeout，但不能直接yield setTimeout，
-  //     // 因为 setTimeout是一个普通函数，并不支持异步操作，
-  //     // 所以先要把 setTimeout 封装到 Promise 对象内部才可能 yield
-  //     const delay = (ms: number) =>
-  //       new Promise((resolve) => {
-  //         setTimeout(resolve, ms);
-  //       });
 
-  //     // call 用于执行 “异步函数“，啰嗦一句，防止被坑，
-  //     // 也就是说不支持普通函数的调用，普通函数一定要如本例一样事先封装
-  //     yield call(delay, 1000);
-
-  //     // put 执行一个action
-  //     yield put({
-  //       type: 'delete',
-  //       payload: id,
-  //     });
-  //   },
-  // },
+  effects: {
+    *fetchData(_, { put, call }) {
+      const stateData = yield call(getFakeData);
+      // 这里有个理解错误，原本以为无论是effects还是reducer，return 的内容都会改变state，
+      // 实际做来发现只有reducer才有这个效果，所以这里用put调用一个reducer，用来改变state
+      // return stateData,
+      yield put({
+        type: 'setData',
+        payload: stateData,
+      });
+    },
+  },
 
   // 订阅
   subscriptions: {
     // 初始化题目数据数据
     init({ dispatch }): void {
       dispatch({
-        type: 'getTestData',
+        type: 'fetchData',
       });
     },
   },
