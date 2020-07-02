@@ -23,24 +23,8 @@ const Model: SingleSelectionModel = {
         newState.isCorrect = false;
       }
       return newState;
-      // const newState = [...state!];
-      // newState!.currentAnswer = value;
-      // return newState
     },
-    //   add: (state) => {
-    //     // 此处有坑，浪费了不少时间， .push返回值是新数组长度，而不是新数组
-    //     state!.push({ name: 'addtest', id: 'addtest' });
-    //     const newState = [...state!];
-    //     // 此处也有大坑，state参数是引用类型，如果直接返回state，dva会认为没有修改state，所有不会刷新（同redux）
-    //     // return state;
-    //     return newState;
-    //   },
-    //   search: (state, { payload: value }) => {
-    //     // const id = 'dva1';
-    //     // const newS =  state!.filter((item) => item.id !== id);
-    //     return state!.filter((item) => item.name === value);
-    //     // return newS;
-    //   },
+
     getTestData() {
       // 假设从外部获取了以下信息，
       // 需要特别注意的是，这里模拟的数据和数据库里存的数据有差别
@@ -67,27 +51,6 @@ const Model: SingleSelectionModel = {
       return initState;
     },
   },
-  // effects: {
-  //   *delay1SecondDelete({ payload: id }, { put, call }) {
-  //     // 注意这个delay，其实就是用的setTimeout，但不能直接yield setTimeout，
-  //     // 因为 setTimeout是一个普通函数，并不支持异步操作，
-  //     // 所以先要把 setTimeout 封装到 Promise 对象内部才可能 yield
-  //     const delay = (ms: number) =>
-  //       new Promise((resolve) => {
-  //         setTimeout(resolve, ms);
-  //       });
-
-  //     // call 用于执行 “异步函数“，啰嗦一句，防止被坑，
-  //     // 也就是说不支持普通函数的调用，普通函数一定要如本例一样事先封装
-  //     yield call(delay, 1000);
-
-  //     // put 执行一个action
-  //     yield put({
-  //       type: 'delete',
-  //       payload: id,
-  //     });
-  //   },
-  // },
 
   // 订阅
   subscriptions: {

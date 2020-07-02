@@ -32,12 +32,6 @@ export interface SingleSelectionModel {
     getTestData: Reducer<SingleSelectionState>;
   };
 
-  // // effects用于处理异步逻辑
-  // effects: {
-  //   // fetchData: Effect;
-  //   delay1SecondDelete: Effect;
-  // };
-
   // subscriptions 用于获取数据源
   subscriptions: {
     init: Subscription;
