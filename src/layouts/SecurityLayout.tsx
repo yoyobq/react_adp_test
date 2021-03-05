@@ -1,9 +1,9 @@
-import React from 'react';
-import { PageLoading } from '@ant-design/pro-layout';
-import { Redirect, connect, ConnectProps } from 'umi';
-import { stringify } from 'querystring';
 import { ConnectState } from '@/models/connect';
 import { CurrentUser } from '@/models/user';
+import { PageLoading } from '@ant-design/pro-layout';
+import { stringify } from 'querystring';
+import React from 'react';
+import { connect, ConnectProps, Redirect } from 'umi';
 
 interface SecurityLayoutProps extends ConnectProps {
   loading?: boolean;
