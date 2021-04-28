@@ -1,6 +1,6 @@
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { Button, Card, Form, Input, message, Select } from 'antd';
-import { Store } from 'antd/es/form/interface';
+import type { Store } from 'antd/es/form/interface';
 import React from 'react';
 import styles from './Form.less';
 

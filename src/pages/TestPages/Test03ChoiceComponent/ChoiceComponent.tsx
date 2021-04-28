@@ -1,7 +1,4 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
-
 // 这条eslint规则已弃用，估计ADP仍有历史残留代码，故需要保留
-/* eslint-disable jsx-a11y/label-has-for */
 // 自主试验，做一个单选题的组合Component
 // 引入antd相关组件
 import { PageHeaderWrapper } from '@ant-design/pro-layout'; // 自动生成页面头部的map链接

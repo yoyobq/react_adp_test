@@ -1,4 +1,4 @@
-import { Reducer } from 'umi';
+import type { Reducer } from 'umi';
 
 // 定义ProductsState的类型
 export interface ProductStateType {
@@ -11,11 +11,11 @@ export interface ProductsModelType {
   // 命名空间是string
   namespace: string;
   // state是个ProductStateType组成的数组
-  state: Array<ProductStateType>;
+  state: ProductStateType[];
   // reducers描述发生了什么事, 用于同步更新state
   reducers: {
-    delete: Reducer<Array<ProductStateType>>;
-    add: Reducer<Array<ProductStateType>>;
+    delete: Reducer<ProductStateType[]>;
+    add: Reducer<ProductStateType[]>;
   };
 
   // effects用于处理异步逻辑

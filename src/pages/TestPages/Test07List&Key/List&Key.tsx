@@ -6,7 +6,7 @@ import React from 'react';
 
 const arr = [1, 2, 'c', 4, 'e'];
 // 定义返回值类型是由 JSX的Element 组成的数组
-function List(): Array<JSX.Element> {
+function List(): JSX.Element[] {
   // map() 方法返回一个新数组，数组中的元素为原始数组元素调用函数处理后的值。
   // list 需要有key这个属性来作为标识，这个标识只在react中可见，如果不指定key，会在console中报错
   // 此处并不推荐用index为key复制，回警告：Do not use Array index in keys
@@ -43,7 +43,7 @@ const OrderList: React.FC<{}> = () => {
 // 之前是对JSX的定义进行操作，现在是用自定义接口对当前的class进行限制
 // 显然是这里的方法更好，以后都会使用这样的方式
 interface Props {
-  list: Array<any>;
+  list: any[];
 }
 
 // 这种尖括号的写法<>，在typeScript在指定“泛型”

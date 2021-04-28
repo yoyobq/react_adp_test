@@ -1,6 +1,9 @@
+/* eslint-disable @typescript-eslint/no-use-before-define */
+/* eslint-disable max-classes-per-file */
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { Card, Form, Input } from 'antd';
-import React, { ChangeEvent } from 'react';
+import type { ChangeEvent } from 'react';
+import React from 'react';
 import styles from './LiftState.less';
 
 // 这张网页会比较复杂，各部分会用<Card>做分割

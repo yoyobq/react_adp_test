@@ -1,6 +1,6 @@
 // React 组件（component）和 props 的自学页面
-import { message } from 'antd';
 import { PageHeaderWrapper } from '@ant-design/pro-layout'; // 自动生成页面头部的map链接
+import { message } from 'antd';
 import React from 'react';
 // import styles from './Event.less';
 

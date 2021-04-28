@@ -1,6 +1,6 @@
 // 一个真正的BlankPage
-import React from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout'; // 自动生成页面头部的map链接
+import React from 'react';
 import styles from './NewPage.less';
 
 function Welcome(props: any): any {

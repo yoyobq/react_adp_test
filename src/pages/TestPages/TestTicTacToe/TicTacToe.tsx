@@ -64,7 +64,7 @@ const Square: React.FC<SquareProps> = (props: SquareProps) => (
 );
 
 interface BoardState {
-  squares: Array<string | number>;
+  squares: (string | number)[];
   xIsNext: boolean;
 }
 
@@ -172,7 +172,7 @@ const Game: React.FC = () => (
 );
 
 // 官网提供的胜负判定代码，显然在比较是否有符合数组组合的相同棋子
-function calculateWinner(squares: Array<number | string>) {
+function calculateWinner(squares: (number | string)[]) {
   const lines = [
     [0, 1, 2],
     [3, 4, 5],

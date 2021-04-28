@@ -4,19 +4,20 @@
  * https://github.com/ant-design/ant-design-pro-layout
  */
 import RightContent from '@/components/GlobalHeader/RightContent';
-import { ConnectState } from '@/models/connect';
+import type { ConnectState } from '@/models/connect';
 import Authorized from '@/utils/Authorized';
 import { getAuthorityFromRouter } from '@/utils/utils';
 import { GithubOutlined } from '@ant-design/icons';
-import ProLayout, {
+import type {
   BasicLayoutProps as ProLayoutProps,
-  DefaultFooter,
   MenuDataItem,
   Settings,
 } from '@ant-design/pro-layout';
+import ProLayout, { DefaultFooter } from '@ant-design/pro-layout';
 import { Button, Result } from 'antd';
 import React, { useEffect } from 'react';
-import { connect, Dispatch, Link, useIntl } from 'umi';
+import type { Dispatch } from 'umi';
+import { connect, Link, useIntl } from 'umi';
 import logo from '../assets/logo.svg';
 
 const noMatch = (
@@ -32,9 +33,7 @@ const noMatch = (
   />
 );
 export interface BasicLayoutProps extends ProLayoutProps {
-  breadcrumbNameMap: {
-    [path: string]: MenuDataItem;
-  };
+  breadcrumbNameMap: Record<string, MenuDataItem>;
   route: ProLayoutProps['route'] & {
     authority: string[];
   };
@@ -42,9 +41,7 @@ export interface BasicLayoutProps extends ProLayoutProps {
   dispatch: Dispatch;
 }
 export type BasicLayoutContext = { [K in 'location']: BasicLayoutProps[K] } & {
-  breadcrumbNameMap: {
-    [path: string]: MenuDataItem;
-  };
+  breadcrumbNameMap: Record<string, MenuDataItem>;
 };
 /**
  * use Authorized check all menu item
@@ -82,7 +79,8 @@ const defaultFooterDom = (
   />
 );
 
-const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
+// const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
+const BasicLayout: React.FC<any> = (props) => {
   const {
     dispatch,
     children,

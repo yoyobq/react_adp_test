@@ -1,12 +1,14 @@
+/* eslint-disable max-classes-per-file */
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import React from 'react';
 import styles from './Rendering.less';
 
-declare namespace JSX {
-  interface ElementAttributesProperty {
-    props: any;
-  }
-}
+// eslint-disable-next-line @typescript-eslint/no-namespace
+// declare namespace JSX {
+//   interface ElementAttributesProperty {
+//     props: any;
+//   }
+// }
 
 function Welcome(props: any): any {
   return <h1 className={styles.testStyle}>Hello, {props.name}</h1>;

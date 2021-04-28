@@ -1,13 +1,15 @@
+/* eslint-disable @typescript-eslint/no-use-before-define */
 import { Button, Popconfirm, Table } from 'antd';
-import { ColumnsType } from 'antd/lib/table';
+import type { ColumnsType } from 'antd/lib/table';
 import React from 'react';
-import { connect, Dispatch } from 'umi';
-import { ProductStateType } from './model/model';
+import type { Dispatch } from 'umi';
+import { connect } from 'umi';
+import type { ProductStateType } from './model/model';
 // 请注意model已被自动加载，且namespace是 'products'
 
 interface ProductsProps {
   dispatch: Dispatch;
-  products: Array<ProductStateType>;
+  products: ProductStateType[];
 }
 
 const Products: React.FC<ProductsProps> = ({ dispatch, products }) => {
@@ -39,8 +41,9 @@ const Products: React.FC<ProductsProps> = ({ dispatch, products }) => {
 
 // ProductsListProps的定义
 interface ProductsListProps {
+  // eslint-disable-next-line @typescript-eslint/ban-types
   onDelete: Function;
-  products: Array<ProductStateType>;
+  products: ProductStateType[];
 }
 
 const ProductList: React.FC<ProductsListProps> = ({ onDelete, products }) => {

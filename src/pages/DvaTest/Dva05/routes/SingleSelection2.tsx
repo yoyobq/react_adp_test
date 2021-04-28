@@ -3,7 +3,7 @@ import { connect } from 'umi';
 import OptionList from '../components/OptionList';
 import Question from '../components/Question';
 import ResultBoard from '../components/ResultBoard';
-import { SingleSelectionProps } from '../data';
+import type { SingleSelectionProps } from '../data';
 
 // routes 名字与文件名一致
 const SingleSelection2: React.FC<SingleSelectionProps> = ({ dispatch, singleSelection2 }) => {
