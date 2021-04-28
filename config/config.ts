@@ -178,6 +178,20 @@ export default defineConfig({
               ],
             },
             {
+              path: '/GraphQL',
+              name: 'GraphQL',
+              icon: 'environment',
+              authority: ['admin'],
+              routes: [
+                {
+                  path: '/GraphQL/GraphQL01',
+                  name: '01 simple Apollo Client',
+                  icon: 'Bulb',
+                  component: './GraphQLExample/GraphQL01',
+                },
+              ],
+            },
+            {
               path: '/admin',
               name: 'admin',
               icon: 'crown',
